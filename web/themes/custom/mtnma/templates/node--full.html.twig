@@ -1,0 +1,13 @@
+{#
+/**
+ * @file
+ * Default full node page body; the title is shown in the page banner.
+ */
+#}
+<section class="content-section">
+<div class="wrap">
+<div{{ attributes.addClass('article') }}>
+{{ content|without('links') }}
+</div>
+</div>
+</section>

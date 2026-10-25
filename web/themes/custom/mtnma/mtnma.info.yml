@@ -1,0 +1,17 @@
+name: MTNIMA Mauritanie
+type: theme
+base theme: false
+description: 'Theme for Ministry of Digital Transformation and Administrative Modernization (Mauritania)'
+core_version_requirement: ^11
+package: Custom
+version: 1.0.0
+libraries:
+  - mtnma/global
+regions:
+  highlighted: Highlighted
+  help: Help
+  content: Content
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+'interface translation project': mtnma
+'interface translation server pattern': themes/custom/mtnma/translations/%language.po

@@ -1,0 +1,297 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the mtnma theme.
+ */
+
+use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Menu\MenuTreeParameters;
+use Drupal\Core\Url;
+use Drupal\node\NodeInterface;
+
+/**
+ * Internal pages linked from the homepage sections, keyed by template name.
+ */
+const MTNMA_PAGES = [
+  'about', 'minister', 'organization', 'agencies', 'strategies', 'indicators',
+  'projects', 'innovation', 'media', 'services',
+];
+
+/**
+ * Social networks shown in the hero rail (first three) and the footer.
+ */
+const MTNMA_SOCIAL = [
+  ['icon' => 'facebook', 'label' => 'Facebook', 'url' => 'https://www.facebook.com/mtnimarim'],
+  ['icon' => 'x', 'label' => 'X', 'url' => 'https://twitter.com/mtnima_mr'],
+  ['icon' => 'linkedin', 'label' => 'LinkedIn', 'url' => 'https://www.linkedin.com/company/mtnima/'],
+  ['icon' => 'youtube', 'label' => 'YouTube', 'url' => 'https://www.youtube.com/@mtnima_rim'],
+];
+
+/**
+ * Returns the URL of the theme images directory.
+ */
+function _mtnma_images_url(): string {
+  return base_path() . \Drupal::service('extension.list.theme')->getPath('mtnma') . '/images';
+}
+
+/**
+ * Returns the current content language code.
+ */
+function _mtnma_langcode(): string {
+  return \Drupal::languageManager()->getCurrentLanguage()->getId();
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function mtnma_preprocess_html(array &$variables): void {
+  $langcode = _mtnma_langcode();
+  $fonts = \Drupal::service('extension.list.theme')->getPath('mtnma') . '/images/';
+  // Arabic pages are set in Almarai, the others in Figtree.
+  $variables['font_preload'] = $langcode === 'ar'
+    ? ['href' => base_path() . $fonts . 'Almarai-Regular.ttf', 'type' => 'font/ttf']
+    : ['href' => base_path() . $fonts . 'Figtree-latin.woff2', 'type' => 'font/woff2'];
+
+  if (\Drupal::service('path.matcher')->isFrontPage()) {
+    $variables['page']['#attached']['html_head'][] = [[
+      '#tag' => 'meta',
+      '#attributes' => [
+        'name' => 'description',
+        'content' => t('Ministry of Digital Transformation and Administrative Modernization — services, news and strategies'),
+      ],
+    ], 'mtnma_description'];
+  }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function mtnma_preprocess_page(array &$variables): void {
+  $langcode = _mtnma_langcode();
+  $cache = CacheableMetadata::createFromRenderArray($variables);
+  $cache->addCacheContexts(['languages', 'url.path', 'route.menu_active_trails:main', 'route.menu_active_trails:footer']);
+  $cache->addCacheTags(['config:system.menu.main', 'config:system.menu.footer']);
+
+  $variables['images'] = _mtnma_images_url();
+  // The official wordmark images are Arabic; other languages use text.
+  $variables['text_wordmarks'] = $langcode !== 'ar';
+  $variables['social_links'] = MTNMA_SOCIAL;
+  $variables['official_site_url'] = $langcode === 'fr' ? 'https://mtnima.gov.mr/fr/' : 'https://mtnima.gov.mr/';
+  $variables['language_switch'] = _mtnma_language_switch($langcode);
+
+  $main = _mtnma_menu_tree('main');
+  $footer = _mtnma_menu_tree('footer');
+  $variables['main_nav'] = $main;
+  $variables['footer_columns'] = array_map(fn($column) => ['title' => $column['title'], 'links' => $column['children']], $footer);
+
+  // Mobile menu and search finder: every main menu page, then any footer page
+  // not already listed (photo gallery, useful links).
+  $pages = [];
+  foreach ([$main, $footer] as $tree) {
+    foreach ($tree as $item) {
+      foreach ($item['children'] ?: [$item] as $page) {
+        if ($page['url'] !== '' && !isset($pages[$page['url']])) {
+          $pages[$page['url']] = $page;
+        }
+      }
+    }
+  }
+  $variables['all_pages'] = array_values($pages);
+
+  // Node pages show their title in the replica's page banner.
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof NodeInterface && \Drupal::routeMatch()->getRouteName() === 'entity.node.canonical') {
+    $variables['page_banner'] = ['title' => $node->label()];
+    $cache->addCacheableDependency($node);
+  }
+  if (!empty($variables['page_banner']) || !empty($variables['is_front'])) {
+    unset($variables['page']['content']['mtnma_page_title']);
+  }
+  $cache->applyTo($variables);
+}
+
+/**
+ * Builds the link to the same page in the other site language.
+ */
+function _mtnma_language_switch(string $langcode): ?array {
+  $target = $langcode === 'ar' ? 'fr' : 'ar';
+  $language = \Drupal::languageManager()->getLanguage($target);
+  if (!$language) {
+    return NULL;
+  }
+  $route = \Drupal::service('path.matcher')->isFrontPage() ? '<front>' : '<current>';
+  $url = Url::fromRoute($route, [], ['language' => $language]);
+  return [
+    'url' => $url->toString(),
+    'langcode' => $target,
+    'dir' => $language->getDirection(),
+    'label' => $target === 'fr' ? 'Français' : 'العربية',
+    'short' => $target === 'fr' ? 'FR' : 'ع',
+  ];
+}
+
+/**
+ * Loads a two-level menu as plain arrays for the replica templates.
+ *
+ * @return array
+ *   Items with keys title, url, active and children (same shape, no children).
+ */
+function _mtnma_menu_tree(string $menu_name): array {
+  $tree_service = \Drupal::menuTree();
+  $parameters = (new MenuTreeParameters())->setMaxDepth(2)->onlyEnabledLinks();
+  $active = \Drupal::service('menu.active_trail')->getActiveTrailIds($menu_name);
+  $tree = $tree_service->transform($tree_service->load($menu_name, $parameters), [
+    ['callable' => 'menu.default_tree_manipulators:checkAccess'],
+    ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
+  ]);
+
+  $build = function (array $elements) use (&$build, $active): array {
+    $items = [];
+    foreach ($elements as $element) {
+      if (!$element->access?->isAllowed()) {
+        continue;
+      }
+      $link = $element->link;
+      $url = $link->getUrlObject();
+      $items[] = [
+        'title' => $link->getTitle(),
+        'url' => $url->isRouted() && $url->getRouteName() === '<nolink>' ? '' : $url->toString(),
+        // A dropdown parent is never itself the current page.
+        'active' => isset($active[$link->getPluginId()]) && !$element->subtree,
+        'children' => $build($element->subtree),
+      ];
+    }
+    return $items;
+  };
+  return $build($tree);
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for node templates.
+ */
+function mtnma_theme_suggestions_node_alter(array &$suggestions, array $variables): void {
+  $node = $variables['elements']['#node'];
+  if ($variables['elements']['#view_mode'] === 'full' && _mtnma_is_front_node($node)) {
+    $suggestions[] = 'node__front';
+  }
+}
+
+/**
+ * Checks whether a node is the one configured as the site front page.
+ */
+function _mtnma_is_front_node(NodeInterface $node): bool {
+  $front = \Drupal::config('system.site')->get('page.front');
+  return $front === '/node/' . $node->id();
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for node templates.
+ */
+function mtnma_preprocess_node(array &$variables): void {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+  if ($variables['view_mode'] !== 'full') {
+    return;
+  }
+  if (_mtnma_is_front_node($node)) {
+    _mtnma_preprocess_front($variables);
+  }
+  elseif ($node->bundle() === 'article') {
+    $item = _mtnma_article_item($node);
+    $variables['article_meta'] = $item;
+    $variables['article_image'] = $item['image'] ? ['url' => $item['image'], 'alt' => $item['alt'], 'position' => $item['position']] : NULL;
+    $variables['media_url'] = Url::fromUserInput('/media')->toString();
+  }
+}
+
+/**
+ * Prepares the homepage sections from article and service nodes.
+ */
+function _mtnma_preprocess_front(array &$variables): void {
+  $langcode = _mtnma_langcode();
+  $variables['images'] = _mtnma_images_url();
+  $variables['social_links'] = MTNMA_SOCIAL;
+  $variables['links'] = [];
+  foreach (MTNMA_PAGES as $page) {
+    $variables['links'][$page] = Url::fromUserInput('/' . $page)->toString();
+  }
+
+  // Hero: sticky articles. News: latest promoted articles; the Media Centre
+  // block continues the list from the fourth item, as in the replica.
+  $hero = _mtnma_load_nodes('article', $langcode, ['sticky' => 1], 3);
+  $latest = _mtnma_load_nodes('article', $langcode, ['promote' => 1], 6);
+  $variables['hero_slides'] = array_map(function (NodeInterface $node) {
+    $item = _mtnma_article_item($node);
+    $hero = $node->get('field_hero_image')->first();
+    if ($hero?->entity) {
+      $item['image'] = \Drupal::service('file_url_generator')->generateString($hero->entity->getFileUri());
+      $item['alt'] = $hero->alt ?? '';
+    }
+    $item['title'] = $node->get('field_hero_title')->value ?: $item['title'];
+    $item['eyebrow'] = $item['archive']
+      ? t('From the Ministry archive')
+      : t('Ministry news · @date', ['@date' => $item['date']]);
+    return $item;
+  }, $hero);
+  $items = array_map('_mtnma_article_item', $latest);
+  $variables['top_news'] = array_slice($items, 0, 4);
+  $variables['media_news'] = array_slice($items, 3, 3);
+
+  $variables['services'] = array_map(function (NodeInterface $node) {
+    $link = $node->get('field_service_link')->first();
+    return [
+      'title' => $node->label(),
+      'description' => $node->get('field_service_description')->value,
+      'url' => $link ? $link->getUrl()->toString() : '',
+      'link_text' => $link?->title,
+      'icon' => $node->get('field_service_icon')->value ?: 'document',
+    ];
+  }, _mtnma_load_nodes('service', $langcode, ['promote' => 1], 12, 'ASC'));
+
+  $variables['#cache']['tags'][] = 'node_list';
+  $variables['#cache']['contexts'][] = 'languages';
+}
+
+/**
+ * Loads published nodes of a bundle in the given language, newest first.
+ *
+ * @return \Drupal\node\NodeInterface[]
+ *   Nodes translated into $langcode.
+ */
+function _mtnma_load_nodes(string $bundle, string $langcode, array $conditions, int $limit, string $direction = 'DESC'): array {
+  $query = \Drupal::entityQuery('node')
+    ->accessCheck(TRUE)
+    ->condition('type', $bundle)
+    ->condition('status', 1)
+    ->condition('langcode', $langcode)
+    ->sort('created', $direction)
+    ->sort('nid', $direction)
+    ->range(0, $limit);
+  foreach ($conditions as $field => $value) {
+    $query->condition($field, $value);
+  }
+  $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($query->execute());
+  return array_values(array_map(fn(NodeInterface $node) => $node->getTranslation($langcode), $nodes));
+}
+
+/**
+ * Flattens an article into the values the replica templates print.
+ */
+function _mtnma_article_item(NodeInterface $node): array {
+  $image = $node->get('field_image')->first();
+  $file = $image?->entity;
+  $created = $node->getCreatedTime();
+  $body = $node->get('body')->first();
+  return [
+    'url' => $node->toUrl()->toString(),
+    'title' => $node->label(),
+    'image' => $file ? \Drupal::service('file_url_generator')->generateString($file->getFileUri()) : '',
+    'alt' => $image?->alt ?? '',
+    'position' => $node->get('field_image_position')->value,
+    'archive' => (bool) $node->get('field_archive')->value,
+    'date' => \Drupal::service('date.formatter')->format($created, 'custom', 'j F Y', NULL, $node->language()->getId()),
+    'iso' => date('Y-m-d', $created),
+    'summary' => $body ? ($body->summary ?: text_summary(strip_tags($body->value), NULL, 200)) : '',
+  ];
+}

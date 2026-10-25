@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Page layout: replica header and footer around Drupal-rendered content.
+ *
+ * Front-page sections are rendered by node--front.html.twig inside
+ * page.content; other pages get the replica's page banner.
+ */
+#}
+{% include '@mtnma/includes/header.html.twig' %}
+<main id="main">
+  {% if page.highlighted or page.help %}
+    <div class="wrap drupal-messages">
+      {{ page.highlighted }}
+      {{ page.help }}
+    </div>
+  {% endif %}
+  {% if not is_front and page_banner %}
+    <section class="page-banner">
+      <div class="wrap">
+        <nav class="breadcrumbs" aria-label="{{ 'Breadcrumb'|t }}">
+          <a href="{{ path('<front>') }}">{{ 'Home'|t }}</a><span aria-hidden="true">/</span><span>{{ page_banner.title }}</span>
+        </nav>
+        <h1>{{ page_banner.title }}</h1>
+        {% if page_banner.lead %}<p>{{ page_banner.lead }}</p>{% endif %}
+      </div>
+    </section>
+  {% endif %}
+  {{ page.content }}
+</main>
+{% include '@mtnma/includes/footer.html.twig' %}
+{% include '@mtnma/includes/search-dialog.html.twig' %}

@@ -1,0 +1,121 @@
+<?php
+
+/**
+ * @file
+ * Install hooks for the MTNIMA site module.
+ */
+
+use Drupal\field\Entity\FieldConfig;
+use Drupal\filter\Entity\FilterFormat;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\language\Entity\ContentLanguageSettings;
+use Drupal\node\Entity\NodeType;
+
+/**
+ * Implements hook_install().
+ *
+ * Creates the homepage content model: article image/archive fields and the
+ * "service" content type, all translatable into the site languages.
+ */
+function mtnma_site_install(): void {
+  mtnma_site_ensure_content_model();
+}
+
+/**
+ * Creates any missing part of the content model; safe to run repeatedly.
+ */
+function mtnma_site_ensure_content_model(): void {
+  if (!FilterFormat::load('basic_html')) {
+    FilterFormat::create([
+      'format' => 'basic_html',
+      'name' => 'Basic HTML',
+      'weight' => 0,
+      'filters' => [
+        'filter_html' => [
+          'status' => TRUE,
+          'settings' => ['allowed_html' => '<p> <br> <a href hreflang> <em> <strong> <cite> <blockquote cite> <ul type> <ol start type> <li> <h2 id> <h3 id> <h4 id> <img src alt width height>'],
+        ],
+        'filter_autop' => ['status' => TRUE],
+        'filter_url' => ['status' => TRUE],
+      ],
+    ])->save();
+  }
+  if (!NodeType::load('service')) {
+    NodeType::create([
+      'type' => 'service',
+      'name' => 'Digital service',
+      'description' => 'A government platform listed in the homepage digital services grid.',
+    ])->save();
+  }
+  $article = NodeType::load('article');
+  if ($article && !FieldConfig::loadByName('node', 'article', 'body')) {
+    node_add_body_field($article);
+  }
+
+  $fields = [
+    ['article', 'field_image', 'image', 'Image', TRUE, ['alt_field_required' => TRUE, 'file_directory' => 'news/[date:custom:Y]-[date:custom:m]']],
+    ['article', 'field_hero_image', 'image', 'Hero image', TRUE, ['file_directory' => 'news/[date:custom:Y]-[date:custom:m]'], 'Optional wider photo for the homepage carousel; the main image is used when empty.'],
+    ['article', 'field_hero_title', 'string', 'Carousel title', TRUE, [], 'Optional shorter headline for the homepage carousel; the title is used when empty.'],
+    ['article', 'field_image_position', 'string', 'Image focal position', FALSE, [], 'CSS object-position used to crop the image, for example "50% 0%".'],
+    ['article', 'field_archive', 'boolean', 'From the archive', FALSE, [], 'Show "From the Ministry archive" instead of the publication date.'],
+    ['service', 'field_service_description', 'string_long', 'Description', TRUE],
+    ['service', 'field_service_link', 'link', 'Service link', TRUE, ['link_type' => 16, 'title' => 1], 'The link text is the call to action; leave it empty for "Go to the service".'],
+    ['service', 'field_service_icon', 'list_string', 'Icon', FALSE],
+  ];
+  $storage_settings = [
+    'field_service_icon' => ['allowed_values' => [
+      'document' => 'Document',
+      'briefcase' => 'Briefcase',
+      'clipboard' => 'Clipboard',
+      'person' => 'Person',
+      'building' => 'Building',
+      'globe' => 'Globe',
+    ]],
+  ];
+  foreach ($fields as $definition) {
+    [$bundle, $name, $type, $label, $translatable] = $definition;
+    $settings = $definition[5] ?? [];
+    if (!FieldStorageConfig::loadByName('node', $name)) {
+      FieldStorageConfig::create([
+        'field_name' => $name,
+        'entity_type' => 'node',
+        'type' => $type,
+        'settings' => $storage_settings[$name] ?? [],
+      ])->save();
+    }
+    if (!FieldConfig::loadByName('node', $bundle, $name)) {
+      FieldConfig::create([
+        'field_name' => $name,
+        'entity_type' => 'node',
+        'bundle' => $bundle,
+        'label' => $label,
+        'description' => $definition[6] ?? '',
+        'translatable' => $translatable,
+        'settings' => $settings,
+      ])->save();
+    }
+  }
+
+  $form = \Drupal::service('entity_display.repository');
+  foreach (['article' => ['body', 'field_image', 'field_hero_image', 'field_hero_title', 'field_image_position', 'field_archive'], 'service' => ['field_service_description', 'field_service_link', 'field_service_icon']] as $bundle => $names) {
+    $form_display = $form->getFormDisplay('node', $bundle);
+    $view_display = $form->getViewDisplay('node', $bundle);
+    foreach ($names as $weight => $name) {
+      $form_display->setComponent($name, ['weight' => $weight + 1]);
+      $view_display->setComponent($name, ['weight' => $weight + 1]);
+    }
+    $form_display->save();
+    $view_display->save();
+  }
+
+  // Articles, services, pages and menu links are translated per language.
+  $translation = \Drupal::service('content_translation.manager');
+  foreach (['node' => ['article', 'service', 'page'], 'menu_link_content' => ['menu_link_content']] as $entity_type => $bundles) {
+    foreach ($bundles as $bundle) {
+      $translation->setEnabled($entity_type, $bundle, TRUE);
+      $config = ContentLanguageSettings::loadByEntityTypeBundle($entity_type, $bundle);
+      $config->setDefaultLangcode('site_default')->setLanguageAlterable(TRUE)->save();
+    }
+  }
+  \Drupal::service('router.builder')->setRebuildNeeded();
+}

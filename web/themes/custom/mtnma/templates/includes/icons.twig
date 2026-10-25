@@ -1,0 +1,46 @@
+{#
+/**
+ * @file
+ * SVG icons used by the replica design.
+ *
+ * Usage: {% import '@mtnma/includes/icons.twig' as icons %} {{ icons.arrow() }}
+ */
+#}
+{% macro arrow() %}<svg class="icon arrow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4m6-6-6 6 6 6"/></svg>{% endmacro %}
+
+{% macro external() %}<svg class="icon arrow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17 7 7m10 0H7v10"/></svg>{% endmacro %}
+
+{% macro chevron() %}<svg class="icon chevron-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>{% endmacro %}
+
+{% macro ui(name) %}
+{%- set paths = {
+  access: '<circle cx="12" cy="4" r="2"/><path d="M4 8h16M12 7v7m0 0-5 7m5-7 5 7M8 9v5m8-5v5"/>',
+  search: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>',
+  menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
+  close: '<path d="m6 6 12 12M18 6 6 18"/>',
+  top: '<path d="M12 20V4m-6 6 6-6 6 6"/>',
+  pause: '<path d="M2 6c0-1.89 0-2.83.59-3.41C3.17 2 4.11 2 6 2s2.83 0 3.41.59C10 3.17 10 4.11 10 6v12c0 1.89 0 2.83-.59 3.41C8.83 22 7.89 22 6 22s-2.83 0-3.41-.59C2 20.83 2 19.89 2 18zm12 0c0-1.89 0-2.83.59-3.41C15.17 2 16.11 2 18 2s2.83 0 3.41.59C22 3.17 22 4.11 22 6v12c0 1.89 0 2.83-.59 3.41-.58.59-1.52.59-3.41.59s-2.83 0-3.41-.59C14 20.83 14 19.89 14 18z"/>',
+  play: '<path d="M20.41 9.35c2.12 1.16 2.12 4.14 0 5.3L7.6 21.61C5.53 22.74 3 21.28 3 18.97V5.03c0-2.31 2.53-3.77 4.6-2.65z"/>',
+  document: '<path d="M14 2H5v20h14V7zM14 2v6h5M8 12h8M8 16h8"/>',
+  briefcase: '<rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V3h8v4M3 12c6 4 12 4 18 0M10 13h4v4h-4z"/>',
+  clipboard: '<path d="M8 4H4v18h16V4h-4M9 2h6v5H9zM8 12h8M8 16h5"/><path d="m14 19 2 2 5-5"/>',
+  person: '<circle cx="12" cy="5" r="3"/><path d="M4 11c5-2 11-2 16 0M12 9v7m0 0-4 6m4-6 4 6M6 11l-2 6m14-6 2 6"/>',
+  building: '<path d="M4 21V8h16v13M2 21h20M3 8l9-6 9 6M8 11v6m4-6v6m4-6v6M10 21v-3h4v3"/>',
+  people: '<circle cx="9" cy="7" r="4"/><path d="M1 22v-4a7 7 0 0 1 14 0v4M17 4a4 4 0 0 1 0 8m1 3a6 6 0 0 1 5 6"/>',
+  chart: '<path d="M3 3v18h18M7 16v-5m5 5V7m5 9V4M5 8l5-4 5 2 6-4"/>',
+  network: '<rect x="9" y="2" width="6" height="5" rx="1"/><rect x="2" y="17" width="6" height="5" rx="1"/><rect x="16" y="17" width="6" height="5" rx="1"/><path d="M12 7v5M5 17v-5h14v5M12 12v8"/>',
+  bulb: '<path d="M8 17c0-4-3-4-3-8a7 7 0 0 1 14 0c0 4-3 4-3 8zM9 20h6M10 23h4M12 4v4m-3 1 3 3 3-3"/>',
+  globe: '<circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="4" ry="10"/><path d="M2 12h20M4 6h16M4 18h16"/>',
+} -%}
+<svg class="icon{{ name in ['pause', 'play'] ? ' icon-' ~ name }}" viewBox="0 0 24 24" aria-hidden="true">{{ paths[name]|default('')|raw }}</svg>
+{%- endmacro %}
+
+{% macro brand(name) %}
+{%- set paths = {
+  facebook: 'M14 22v-9h3l.5-4H14V6.5c0-1.2.4-2 2-2H18V1.2A25 25 0 0 0 15.1 1C12.2 1 10 2.8 10 6v3H7v4h3v9z',
+  x: 'M18.9 2H22l-6.8 7.8L23.2 22H17l-4.9-7.4L5.6 22H2.4l8.2-9.4L2.8 2H9l4.5 6.7L18.9 2ZM17.8 20h1.7L7.9 4H6.1z',
+  linkedin: 'M20.45 2H3.55C2.69 2 2 2.68 2 3.52v16.96c0 .84.69 1.52 1.55 1.52h16.9c.86 0 1.55-.68 1.55-1.52V3.52c0-.84-.69-1.52-1.55-1.52ZM7.93 18.75H4.98V9.2h2.95v9.55ZM6.45 7.9a1.71 1.71 0 1 1 0-3.42 1.71 1.71 0 0 1 0 3.42Zm12.3 10.85H15.8V14.1c0-1.1-.02-2.5-1.52-2.5-1.52 0-1.75 1.19-1.75 2.42v4.73H9.58V9.2h2.83v1.3h.04c.39-.74 1.35-1.52 2.78-1.52 2.97 0 3.52 1.95 3.52 4.49v5.28Z',
+  youtube: 'M23 7s-.23-1.65-.94-2.38c-.9-.96-1.92-.96-2.38-1.01C16.36 3.36 12 3.36 12 3.36s-4.36 0-7.68.25c-.46.05-1.48.05-2.38 1.01C1.23 5.35 1 7 1 7S.75 8.94.75 10.88v1.82c0 1.94.25 3.88.25 3.88s.23 1.65.94 2.38c.9.96 2.08.93 2.61 1.03 1.9.18 7.45.24 7.45.24s4.36 0 7.68-.25c.46-.05 1.48-.05 2.38-1.01.71-.73.94-2.38.94-2.38s.25-1.94.25-3.88v-1.82C23.25 8.94 23 7 23 7ZM9.68 15.12V8.4l6.48 3.36-6.48 3.36Z',
+} -%}
+<svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ paths[name] }}"/></svg>
+{%- endmacro %}

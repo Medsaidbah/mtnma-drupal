@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Full article page, using the replica's .article layout. The title is shown
+ * in the page banner (see mtnma_preprocess_page()).
+ */
+#}
+{% import '@mtnma/includes/icons.twig' as icons %}
+<section class="content-section">
+<div class="wrap">
+<article{{ attributes.addClass('article') }}>
+<div class="article-meta">{% include '@mtnma/includes/news-date.html.twig' with {item: article_meta} %}</div>
+{% if article_image %}
+<img class="article-image" src="{{ article_image.url }}" alt="{{ article_image.alt }}"{% if article_image.position %} style="object-position:{{ article_image.position }}"{% endif %}>
+{% endif %}
+{{ content.body }}
+<div class="article-actions">
+<a class="btn" href="{{ media_url }}">{{ 'Back to the Media Centre'|t }} {{ icons.arrow() }}</a>
+</div>
+</article>
+</div>
+</section>

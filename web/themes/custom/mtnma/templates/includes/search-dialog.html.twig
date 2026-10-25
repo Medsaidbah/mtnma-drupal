@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Client-side page finder (filtered by interactions.js) over all_pages.
+ */
+#}
+{% import '@mtnma/includes/icons.twig' as icons %}
+<dialog id="search-dialog" aria-labelledby="search-title">
+<div class="dialog-head">
+<h2 id="search-title">{{ 'Search the site'|t }}</h2>
+<button class="icon-btn" data-close aria-label="{{ 'Close search'|t }}">{{ icons.ui('close') }}
+</button>
+</div>
+<label for="site-search">{{ 'Search for a page or a service'|t }}</label><input id="site-search" type="search" placeholder="{{ 'Example: digital services'|t }}">
+<div id="search-results">
+{% for item in all_pages %}
+<a href="{{ item.url }}">{{ item.title }}{{ icons.arrow() }}
+</a>
+{% endfor %}
+</div>
+<p id="search-empty" hidden>{{ 'No results. Try another word.'|t }}</p></dialog>

@@ -1,0 +1,8 @@
+global:
+  version: 1.1.0
+  css:
+    theme:
+      css/styles.css: {}
+      css/drupal.css: {}
+  js:
+    js/interactions.js: { attributes: { defer: true } }

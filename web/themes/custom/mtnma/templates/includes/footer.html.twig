@@ -1,0 +1,41 @@
+{#
+/**
+ * @file
+ * Replica footer. Link columns come from the "footer" menu: each top-level
+ * item is a column heading and its children are the links.
+ */
+#}
+{% import '@mtnma/includes/icons.twig' as icons %}
+<div id="footer">
+<footer class="footer">
+<div class="wrap footer-grid">
+<div class="footer-brand">
+<div class="footer-official-logo"><img src="{{ images }}/seal.png" alt="{{ 'Emblem of the Republic'|t }}">
+{%- if text_wordmarks -%}
+<span class="ministry-wordmark">{{ 'Ministry of Digital Transformation and Administrative Modernization'|t }}</span>
+{%- else -%}
+<img src="{{ images }}/ministry-logo.png" alt="{{ 'Ministry of Digital Transformation and Administrative Modernization'|t }}">
+{%- endif %}
+</div>
+<p>{{ 'Towards an administration closer to citizens, and simpler digital services.'|t }}</p>
+</div>
+{% for column in footer_columns %}
+<div>
+<h3>{{ column.title }}</h3>
+{% for link in column.links %}
+<a href="{{ link.url }}">{{ link.title }}</a>
+{% endfor %}
+</div>
+{% endfor %}
+</div>
+<div class="wrap footer-bottom"><span>{{ 'Development version inspired by a Figma design · Reference content: <a href=":url" target="_blank" rel="noopener">official Ministry website</a>'|t({':url': official_site_url}) }}</span>
+<div class="footer-social">
+{% for network in social_links %}
+<a href="{{ network.url }}" aria-label="{{ network.label }}" target="_blank" rel="noopener">{{ icons.brand(network.icon) }}
+</a>
+{% endfor %}
+<a href="#header" aria-label="{{ 'Back to top of page'|t }}">{{ icons.ui('top') }}</a>
+</div>
+</div>
+</footer>
+</div>

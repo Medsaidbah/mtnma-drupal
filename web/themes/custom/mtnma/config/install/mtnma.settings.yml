@@ -1,0 +1,4 @@
+favicon:
+  use_default: false
+  path: themes/custom/mtnma/images/seal.png
+  mimetype: image/png

@@ -1,0 +1,253 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: mtnma\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+msgid "Skip to content"
+msgstr "Aller au contenu"
+
+msgid "Ministry of Digital Transformation — Home"
+msgstr "Ministère de la Transformation Numérique et de la Modernisation de l’Administration — Accueil"
+
+msgid "Emblem of the Islamic Republic of Mauritania"
+msgstr "Emblème de la République Islamique de Mauritanie"
+
+msgid "Islamic Republic of Mauritania"
+msgstr "République Islamique de Mauritanie"
+
+msgid "Honour – Fraternity – Justice"
+msgstr "Honneur – Fraternité – Justice"
+
+msgid "Islamic Republic of Mauritania — Honour, Fraternity, Justice"
+msgstr "République Islamique de Mauritanie — Honneur, Fraternité, Justice"
+
+msgid "Ministry of Digital Transformation and Administrative Modernization"
+msgstr "Ministère de la Transformation Numérique et de la Modernisation de l’Administration"
+
+msgid "Ministry of Digital Transformation and Administrative Modernization — services, news and strategies"
+msgstr "Ministère de la Transformation Numérique et de la Modernisation de l’Administration — services, actualités et stratégies"
+
+msgid "Accessibility options"
+msgstr "Options d’accessibilité"
+
+msgid "Search the site"
+msgstr "Rechercher sur le site"
+
+msgid "Larger text"
+msgstr "Agrandir le texte"
+
+msgid "Original text size"
+msgstr "Taille d’origine"
+
+msgid "High contrast"
+msgstr "Contraste élevé"
+
+msgid "Main navigation"
+msgstr "Navigation principale"
+
+msgid "Open all site pages"
+msgstr "Ouvrir toutes les pages du site"
+
+msgid "All pages"
+msgstr "Toutes les pages"
+
+msgid "Breadcrumb"
+msgstr "Fil d’Ariane"
+
+msgid "Home"
+msgstr "Accueil"
+
+msgid "Emblem of the Republic"
+msgstr "Emblème de la République"
+
+msgid "Towards an administration closer to citizens, and simpler digital services."
+msgstr "Pour une administration plus proche des citoyens et des services numériques plus simples."
+
+msgid "Development version inspired by a Figma design · Reference content: <a href=\":url\" target=\"_blank\" rel=\"noopener\">official Ministry website</a>"
+msgstr "Version de développement inspirée d’une maquette Figma · Contenu de référence : <a href=\":url\" target=\"_blank\" rel=\"noopener\">site officiel du Ministère</a>"
+
+msgid "Back to top of page"
+msgstr "Retour en haut de la page"
+
+msgid "Close search"
+msgstr "Fermer la recherche"
+
+msgid "Search for a page or a service"
+msgstr "Rechercher une page ou un service"
+
+msgid "Example: digital services"
+msgstr "Exemple : services numériques"
+
+msgid "No results. Try another word."
+msgstr "Aucun résultat. Essayez un autre mot."
+
+msgid "carousel"
+msgstr "carrousel"
+
+msgid "Featured news"
+msgstr "Actualités à la une"
+
+msgid "slide"
+msgstr "diapositive"
+
+msgid "@index of @count"
+msgstr "@index sur @count"
+
+msgid "News item @index"
+msgstr "Actualité @index"
+
+msgid "Pause automatic scrolling"
+msgstr "Mettre en pause le défilement automatique"
+
+msgid "Ministry news · @date"
+msgstr "Actualités du Ministère · @date"
+
+msgid "From the Ministry archive"
+msgstr "Archives du Ministère"
+
+msgid "Read the article"
+msgstr "Lire l’article"
+
+msgid "Read the news"
+msgstr "Lire l’article"
+
+msgid "The Ministry in figures"
+msgstr "Le Ministère en chiffres"
+
+msgid "Indicators published in the Ministry archive"
+msgstr "Indicateurs publiés dans les archives du Ministère"
+
+msgid "Internet penetration rate"
+msgstr "Taux de pénétration d’Internet"
+
+msgid "Mobile phone penetration · 2022"
+msgstr "Pénétration de la téléphonie mobile · 2022"
+
+msgid "km"
+msgstr "km"
+
+msgid "Optical fibre · 2021"
+msgstr "Fibre optique · 2021"
+
+msgid "Top news"
+msgstr "Principales actualités"
+
+msgid "Follow Ministry news and digital transformation activities"
+msgstr "Suivez les actualités du Ministère et les activités de transformation numérique"
+
+msgid "All news"
+msgstr "Toutes les actualités"
+
+msgid "Explore the Media Centre"
+msgstr "Explorer le Centre des médias"
+
+msgid "Digital services"
+msgstr "Services numériques"
+
+msgid "Your procedures, closer to you. Choose a service and go directly to its official portal."
+msgstr "Vos démarches, plus proches de vous. Choisissez un service et accédez directement à son portail officiel."
+
+msgid "All services"
+msgstr "Tous les services"
+
+msgid "Go to the service"
+msgstr "Accéder au service"
+
+msgid "Clear services, simpler steps"
+msgstr "Des services clairs, des démarches simplifiées"
+
+msgid "A single portal to discover government platforms and access them."
+msgstr "Un portail unique pour découvrir les plateformes gouvernementales et y accéder."
+
+msgid "Find your service"
+msgstr "Trouvez votre service"
+
+msgid "Mr. Ahmed Salem Bede"
+msgstr "M. Ahmed Salem Bede"
+
+msgid "Minister of Digital Transformation and Administrative Modernization"
+msgstr "Ministre de la Transformation Numérique et de la Modernisation de l’Administration"
+
+msgid "About the Minister"
+msgstr "Le Ministre"
+
+msgid "About the Ministry"
+msgstr "Le Ministère"
+
+msgid "Digital transformation serving the citizen"
+msgstr "La transformation numérique au service du citoyen"
+
+msgid "Learn about the missions of the Ministry and its bodies, and explore the policies and initiatives aimed at developing public services and making use of digital tools."
+msgstr "Découvrez les missions du Ministère et de ses organismes, et explorez les politiques et initiatives visant à développer les services publics et à tirer parti des outils numériques."
+
+msgid "Organization chart"
+msgstr "Organigramme"
+
+msgid "Organization and operation"
+msgstr "Organisation et fonctionnement"
+
+msgid "Supervised bodies"
+msgstr "Établissements sous tutelle"
+
+msgid "Complementary institutions"
+msgstr "Des institutions complémentaires"
+
+msgid "Strategies and policies"
+msgstr "Stratégies et politiques"
+
+msgid "Vision and priorities of the sector"
+msgstr "Vision et priorités du secteur"
+
+msgid "Sector indicators"
+msgstr "Indicateurs du secteur"
+
+msgid "Data on digital transformation"
+msgstr "Données sur la transformation numérique"
+
+msgid "Areas of action of the Ministry"
+msgstr "Axes d’intervention du Ministère"
+
+msgid "Integrated paths to build a digital future that serves everyone"
+msgstr "Des axes complémentaires pour bâtir un avenir numérique au service de tous"
+
+msgid "Infrastructure"
+msgstr "Infrastructure"
+
+msgid "Strengthening connectivity, developing digital infrastructure and hosting data."
+msgstr "Renforcer la connectivité, développer l’infrastructure numérique et héberger les données."
+
+msgid "Administrative modernization"
+msgstr "Modernisation de l’administration"
+
+msgid "Simplifying procedures and improving the experience of public service users."
+msgstr "Simplifier les procédures et améliorer l’expérience des usagers du service public."
+
+msgid "Innovation"
+msgstr "Innovation"
+
+msgid "Supporting new solutions and entrepreneurship in the digital field."
+msgstr "Soutenir les solutions nouvelles et l’entrepreneuriat dans le domaine numérique."
+
+msgid "Digital transformation"
+msgstr "Transformation numérique"
+
+msgid "Developing the policies and tools that support the digitization of services."
+msgstr "Élaborer les politiques et les outils qui favorisent la digitalisation des services."
+
+msgid "Learn more"
+msgstr "En savoir plus"
+
+msgid "Media Centre"
+msgstr "Centre des médias"
+
+msgid "News and events from the Ministry archive"
+msgstr "Actualités et événements issus des archives du Ministère"
+
+msgid "See more"
+msgstr "Voir plus"
+
+msgid "Back to the Media Centre"
+msgstr "Retour au Centre des médias"

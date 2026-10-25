@@ -1,0 +1,13 @@
+name: 'MTNIMA site'
+type: module
+description: 'Content model (articles, digital services) and bilingual setup for the MTNIMA homepage.'
+core_version_requirement: ^11
+package: Custom
+dependencies:
+  - drupal:node
+  - drupal:text
+  - drupal:image
+  - drupal:link
+  - drupal:options
+  - drupal:menu_link_content
+  - drupal:content_translation

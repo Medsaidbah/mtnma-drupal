@@ -1,0 +1,301 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: mtnma\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=((n==1)?(0):((n==0)?(1):((n==2)?(2):((((n%100)>=3)&&((n%100)<=10))?(3):((((n%100)>=11)&&((n%100)<=99))?(4):5)))));\n"
+
+msgid "Skip to content"
+msgstr "انتقل إلى المحتوى"
+
+msgid "Ministry of Digital Transformation — Home"
+msgstr "وزارة التحول الرقمي — الرئيسية"
+
+msgid "Emblem of the Islamic Republic of Mauritania"
+msgstr "شعار الجمهورية الإسلامية الموريتانية"
+
+msgid "Islamic Republic of Mauritania"
+msgstr "الجمهورية الإسلامية الموريتانية"
+
+msgid "Honour – Fraternity – Justice"
+msgstr "شرف – إخاء – عدل"
+
+msgid "Islamic Republic of Mauritania — Honour, Fraternity, Justice"
+msgstr "الجمهورية الإسلامية الموريتانية — شرف إخاء عدل"
+
+msgid "Ministry of Digital Transformation and Administrative Modernization"
+msgstr "وزارة التحول الرقمي وعصرنة الإدارة"
+
+msgid "Ministry of Digital Transformation and Administrative Modernization — services, news and strategies"
+msgstr "وزارة التحول الرقمي وعصرنة الإدارة — الخدمات والأخبار والاستراتيجيات"
+
+msgid "Accessibility options"
+msgstr "خيارات إمكانية الوصول"
+
+msgid "Search the site"
+msgstr "البحث في الموقع"
+
+msgid "Larger text"
+msgstr "تكبير الخط"
+
+msgid "Original text size"
+msgstr "الخط الأصلي"
+
+msgid "High contrast"
+msgstr "تباين عالٍ"
+
+msgid "Main navigation"
+msgstr "التنقل الرئيسي"
+
+msgid "Open all site pages"
+msgstr "فتح جميع صفحات الموقع"
+
+msgid "All pages"
+msgstr "جميع الصفحات"
+
+msgid "Breadcrumb"
+msgstr "مسار التنقل"
+
+msgid "Home"
+msgstr "الرئيسية"
+
+msgid "Emblem of the Republic"
+msgstr "شعار الجمهورية"
+
+msgid "Towards an administration closer to citizens, and simpler digital services."
+msgstr "نحو إدارة أقرب إلى المواطن، وخدمات رقمية أكثر سهولة."
+
+msgid "Development version inspired by a Figma design · Reference content: <a href=\":url\" target=\"_blank\" rel=\"noopener\">official Ministry website</a>"
+msgstr "نسخة تطوير مستوحاة من تصميم Figma · المحتوى المرجعي: <a href=\":url\" target=\"_blank\" rel=\"noopener\">موقع الوزارة الرسمي</a>"
+
+msgid "Back to top of page"
+msgstr "العودة إلى أعلى الصفحة"
+
+msgid "Close search"
+msgstr "إغلاق البحث"
+
+msgid "Search for a page or a service"
+msgstr "ابحث عن صفحة أو خدمة"
+
+msgid "Example: digital services"
+msgstr "مثال: الخدمات الرقمية"
+
+msgid "No results. Try another word."
+msgstr "لا توجد نتائج. جرّب كلمة أخرى."
+
+msgid "carousel"
+msgstr "عرض متحرك"
+
+msgid "Featured news"
+msgstr "أخبار الواجهة"
+
+msgid "slide"
+msgstr "شريحة"
+
+msgid "@index of @count"
+msgstr "@index من @count"
+
+msgid "News item @index"
+msgstr "الخبر @index"
+
+msgid "Pause automatic scrolling"
+msgstr "إيقاف التمرير التلقائي"
+
+msgid "Ministry news · @date"
+msgstr "من أخبار الوزارة · @date"
+
+msgid "From the Ministry archive"
+msgstr "من أرشيف الوزارة"
+
+msgid "Read the article"
+msgstr "تفاصيل الخبر"
+
+msgid "Read the news"
+msgstr "اقرأ الخبر"
+
+msgid "The Ministry in figures"
+msgstr "الوزارة بالأرقام"
+
+msgid "Indicators published in the Ministry archive"
+msgstr "مؤشرات منشورة في أرشيف الوزارة"
+
+msgid "Internet penetration rate"
+msgstr "معدل النفاذ إلى الإنترنت"
+
+msgid "Mobile phone penetration · 2022"
+msgstr "نفاذ الهاتف المحمول · 2022"
+
+msgid "km"
+msgstr "كم"
+
+msgid "Optical fibre · 2021"
+msgstr "الألياف البصرية · 2021"
+
+msgid "Top news"
+msgstr "الأخبار الرئيسية"
+
+msgid "Follow Ministry news and digital transformation activities"
+msgstr "تابع أخبار الوزارة وأنشطة التحول الرقمي"
+
+msgid "All news"
+msgstr "جميع الأخبار"
+
+msgid "Explore the Media Centre"
+msgstr "استكشف المركز الإعلامي"
+
+msgid "Digital services"
+msgstr "الخدمات الرقمية"
+
+msgid "Your procedures, closer to you. Choose a service and go directly to its official portal."
+msgstr "معاملاتك أقرب إليك. اختر الخدمة وانتقل مباشرةً إلى بوابتها الرسمية."
+
+msgid "All services"
+msgstr "جميع الخدمات"
+
+msgid "Go to the service"
+msgstr "الدخول إلى الخدمة"
+
+msgid "Clear services, simpler steps"
+msgstr "خدمات واضحة، وخطوات أسهل"
+
+msgid "A single portal to discover government platforms and access them."
+msgstr "بوابة موحدة للتعرّف على المنصات الحكومية والوصول إليها."
+
+msgid "Find your service"
+msgstr "ابحث عن خدمتك"
+
+msgid "Mr. Ahmed Salem Bede"
+msgstr "السيد أحمد سالم ابده"
+
+msgid "Minister of Digital Transformation and Administrative Modernization"
+msgstr "وزير التحول الرقمي وعصرنة الإدارة"
+
+msgid "About the Minister"
+msgstr "عن معالي الوزير"
+
+msgid "About the Ministry"
+msgstr "عن الوزارة"
+
+msgid "Digital transformation serving the citizen"
+msgstr "التحول الرقمي في خدمة المواطن"
+
+msgid "Learn about the missions of the Ministry and its bodies, and explore the policies and initiatives aimed at developing public services and making use of digital tools."
+msgstr "اطّلع على مهام الوزارة وهيئاتها، واستكشف السياسات والمبادرات الرامية إلى تطوير الخدمات العمومية والاستفادة من الأدوات الرقمية."
+
+msgid "Organization chart"
+msgstr "الهيكل التنظيمي"
+
+msgid "Organization and operation"
+msgstr "تنظيم وتسيير العمل"
+
+msgid "Supervised bodies"
+msgstr "الهيئات تحت الوصاية"
+
+msgid "Complementary institutions"
+msgstr "مؤسسات تعمل بتكامل"
+
+msgid "Strategies and policies"
+msgstr "الاستراتيجيات والسياسات"
+
+msgid "Vision and priorities of the sector"
+msgstr "رؤية وأولويات القطاع"
+
+msgid "Sector indicators"
+msgstr "مؤشرات القطاع"
+
+msgid "Data on digital transformation"
+msgstr "بيانات عن التحول الرقمي"
+
+msgid "Areas of action of the Ministry"
+msgstr "محاور عمل الوزارة"
+
+msgid "Integrated paths to build a digital future that serves everyone"
+msgstr "مسارات متكاملة لبناء مستقبل رقمي يخدم الجميع"
+
+msgid "Infrastructure"
+msgstr "البنية التحتية"
+
+msgid "Strengthening connectivity, developing digital infrastructure and hosting data."
+msgstr "تعزيز الاتصال وتطوير البنية الرقمية واستضافة البيانات."
+
+msgid "Administrative modernization"
+msgstr "عصرنة الإدارة"
+
+msgid "Simplifying procedures and improving the experience of public service users."
+msgstr "تبسيط المساطر وتحسين تجربة المستفيد من الخدمة العمومية."
+
+msgid "Innovation"
+msgstr "الابتكار"
+
+msgid "Supporting new solutions and entrepreneurship in the digital field."
+msgstr "دعم الحلول الجديدة وريادة الأعمال في المجال الرقمي."
+
+msgid "Digital transformation"
+msgstr "التحول الرقمي"
+
+msgid "Developing the policies and tools that support the digitization of services."
+msgstr "تطوير السياسات والأدوات التي تدعم رقمنة الخدمات."
+
+msgid "Learn more"
+msgstr "اكتشف المزيد"
+
+msgid "Media Centre"
+msgstr "المركز الإعلامي"
+
+msgid "News and events from the Ministry archive"
+msgstr "أخبار وفعاليات من أرشيف الوزارة"
+
+msgid "See more"
+msgstr "عرض المزيد"
+
+msgid "Back to the Media Centre"
+msgstr "العودة إلى المركز الإعلامي"
+
+msgctxt "Long month name"
+msgid "January"
+msgstr "يناير"
+
+msgctxt "Long month name"
+msgid "February"
+msgstr "فبراير"
+
+msgctxt "Long month name"
+msgid "March"
+msgstr "مارس"
+
+msgctxt "Long month name"
+msgid "April"
+msgstr "أبريل"
+
+msgctxt "Long month name"
+msgid "May"
+msgstr "مايو"
+
+msgctxt "Long month name"
+msgid "June"
+msgstr "يونيو"
+
+msgctxt "Long month name"
+msgid "July"
+msgstr "يوليو"
+
+msgctxt "Long month name"
+msgid "August"
+msgstr "أغسطس"
+
+msgctxt "Long month name"
+msgid "September"
+msgstr "سبتمبر"
+
+msgctxt "Long month name"
+msgid "October"
+msgstr "أكتوبر"
+
+msgctxt "Long month name"
+msgid "November"
+msgstr "نوفمبر"
+
+msgctxt "Long month name"
+msgid "December"
+msgstr "ديسمبر"

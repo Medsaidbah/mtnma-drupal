@@ -1,0 +1,2 @@
+{# Article date, or the "from the archive" label for undated archive items. #}
+{% if item.archive %}<span class="date">{{ 'From the Ministry archive'|t }}</span>{% else %}<time datetime="{{ item.iso }}">{{ item.date }}</time>{% endif %}

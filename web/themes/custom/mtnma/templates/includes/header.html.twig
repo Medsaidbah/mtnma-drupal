@@ -1,0 +1,67 @@
+{#
+/**
+ * @file
+ * Replica masthead and navigation.
+ *
+ * Variables (mtnma_preprocess_page()):
+ * - images: Base URL of the theme images directory.
+ * - text_wordmarks: TRUE to render the wordmarks as text (non-Arabic pages).
+ * - language_switch: {url, langcode, dir, label, short} for the other language.
+ * - main_nav: Main menu items {title, url, active, children}.
+ * - all_pages: Flat list of every site page, for the mobile menu.
+ */
+#}
+{% import '@mtnma/includes/icons.twig' as icons %}
+<div id="header">
+<header>
+<div class="wrap masthead">
+<a class="identity" href="{{ path('<front>') }}" aria-label="{{ 'Ministry of Digital Transformation — Home'|t }}"><img class="national-seal" src="{{ images }}/seal.png" alt="{{ 'Emblem of the Islamic Republic of Mauritania'|t }}">
+{%- if text_wordmarks -%}
+<span class="official-wordmarks wordmarks-text"><span class="republic-wordmark">{{ 'Islamic Republic of Mauritania'|t }}<small>{{ 'Honour – Fraternity – Justice'|t }}</small></span><span class="ministry-wordmark">{{ 'Ministry of Digital Transformation and Administrative Modernization'|t }}</span></span>
+{%- else -%}
+<span class="official-wordmarks"><img class="republic-wordmark" src="{{ images }}/republic-wordmark.png" alt="{{ 'Islamic Republic of Mauritania — Honour, Fraternity, Justice'|t }}"><img class="ministry-wordmark" src="{{ images }}/ministry-logo.png" alt="{{ 'Ministry of Digital Transformation and Administrative Modernization'|t }}"></span>
+{%- endif %}
+</a>
+<div class="utilities">
+{% if language_switch %}
+<a class="language" href="{{ language_switch.url }}" lang="{{ language_switch.langcode }}" hreflang="{{ language_switch.langcode }}"{% if language_switch.dir == 'rtl' %} dir="rtl"{% endif %} aria-label="{{ language_switch.label }}"><span class="language-full">{{ language_switch.label }}</span><span class="language-short" aria-hidden="true">{{ language_switch.short }}</span>
+</a>
+{% endif %}
+<button class="icon-btn" id="access-toggle" aria-label="{{ 'Accessibility options'|t }}" aria-expanded="false" aria-controls="access-panel">{{ icons.ui('access') }}
+</button>
+<button class="icon-btn" id="search-toggle" aria-label="{{ 'Search the site'|t }}">{{ icons.ui('search') }}
+</button>
+</div>
+</div>
+<div class="access-panel" id="access-panel">
+<button class="btn outline" id="font-more">{{ 'Larger text'|t }}</button>
+<button class="btn outline" id="font-reset">{{ 'Original text size'|t }}</button>
+<button class="btn outline" id="contrast-toggle" aria-pressed="false">{{ 'High contrast'|t }}</button>
+</div>
+<div class="nav-border">
+<nav class="wrap navline" aria-label="{{ 'Main navigation'|t }}">
+{% for item in main_nav %}
+{% if item.children %}
+<details class="dropdown">
+<summary>{{ item.title }}{{ icons.chevron() }}</summary>
+<div>
+{% for child in item.children %}
+<a{% if child.active %} class="active" aria-current="page"{% endif %} href="{{ child.url }}">{{ child.title }}</a>
+{% endfor %}
+</div>
+</details>
+{% else %}
+<a{% if item.active %} class="active" aria-current="page"{% endif %} href="{{ item.url }}">{{ item.title }}</a>
+{% endif %}
+{% endfor %}
+<button class="icon-btn menu-toggle" id="menu-toggle" aria-label="{{ 'Open all site pages'|t }}" aria-expanded="false" aria-controls="mobile-menu">{{ icons.ui('menu') }}
+</button>
+</nav>
+<nav class="mobile-menu" id="mobile-menu" aria-label="{{ 'All pages'|t }}">
+{% for item in all_pages %}
+<a{% if item.active %} class="active" aria-current="page"{% endif %} href="{{ item.url }}">{{ item.title }}</a>
+{% endfor %}
+</nav>
+</div>
+</header>
+</div>

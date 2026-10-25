@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Document wrapper for the mtnma theme.
+ *
+ * lang/dir come from the current language (see mtnma_preprocess_html()).
+ */
+#}
+<!doctype html>
+<html{{ html_attributes }}>
+<head>
+  <head-placeholder token="{{ placeholder_token }}">
+  <title>{{ head_title|safe_join(' | ') }}</title>
+  <link rel="preload" href="{{ font_preload.href }}" as="font" type="{{ font_preload.type }}" crossorigin>
+  <css-placeholder token="{{ placeholder_token }}">
+  <js-placeholder token="{{ placeholder_token }}">
+</head>
+<body{{ attributes }}>
+  <a class="skip" href="#main">{{ 'Skip to content'|t }}</a>
+  {{ page_top }}
+  {{ page }}
+  {{ page_bottom }}
+  <js-bottom-placeholder token="{{ placeholder_token }}">
+</body>
+</html>

@@ -1,0 +1,6 @@
+/* Drupal UI that the static replica has no styles for (messages, local tasks). */
+.drupal-messages { padding-block: 16px 0; }
+.drupal-messages ul.tabs { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0 0 12px; }
+.drupal-messages ul.tabs a { display: inline-block; padding: 6px 12px; border: 1px solid var(--line); border-radius: 4px; font-size: 13px; }
+.drupal-messages ul.tabs a.is-active { background: var(--green); color: #fff; border-color: var(--green); }
+.drupal-messages [role="contentinfo"], .drupal-messages .messages { padding: 12px 16px; margin-bottom: 12px; border: 1px solid var(--line); border-radius: 4px; background: #fff; font-size: 13px; }
