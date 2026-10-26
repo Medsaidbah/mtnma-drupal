@@ -1,0 +1,6 @@
+services:
+  mtnma_site.english_frontend:
+    class: Drupal\mtnma_site\EventSubscriber\EnglishFrontendSubscriber
+    arguments: ['@language_manager', '@router.admin_context']
+    tags:
+      - { name: event_subscriber }

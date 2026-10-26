@@ -251,3 +251,95 @@ msgstr "Voir plus"
 
 msgid "Back to the Media Centre"
 msgstr "Retour au Centre des médias"
+
+msgid "Related pages"
+msgstr "Pages associées"
+
+msgid "Ministry news"
+msgstr "Actualités du Ministère"
+
+msgid "Citizens"
+msgstr "Citoyens"
+
+msgid "Businesses"
+msgstr "Entreprises"
+
+msgid "Education and family"
+msgstr "Éducation et famille"
+
+msgid "Search the news"
+msgstr "Rechercher dans les actualités"
+
+msgid "Search the news…"
+msgstr "Rechercher une actualité..."
+
+msgid "Search for a service"
+msgstr "Rechercher un service"
+
+msgid "Search for a service…"
+msgstr "Rechercher un service..."
+
+msgid "No results match your search."
+msgstr "Aucun résultat ne correspond à la recherche."
+
+msgid "Read the original article"
+msgstr "Lire l’article original"
+
+msgid "Copy the article link"
+msgstr "Copier le lien de l’article"
+
+msgid "Reference source: <a href=\":url\" target=\"_blank\" rel=\"noopener noreferrer\">official Ministry website</a>"
+msgstr "Source : <a href=\":url\" target=\"_blank\" rel=\"noopener noreferrer\">site officiel du Ministère</a>"
+
+msgid "Digital service"
+msgstr "Service numérique"
+
+msgid "Procedures are completed on the official website of each service. This site is a guide to those websites."
+msgstr "Les démarches s’effectuent sur le site officiel de chaque service. Ce site est un guide pour y accéder."
+
+msgid "Pages, news and digital services of the Ministry."
+msgstr "Pages, actualités et services numériques du Ministère."
+
+msgid "Search pages, news and services"
+msgstr "Rechercher dans les pages, les actualités et les services"
+
+msgid "Site pages"
+msgstr "Pages du site"
+
+msgid "No page title matches. Press Search to look in all content."
+msgstr "Aucun titre de page ne correspond. Appuyez sur « Rechercher » pour chercher dans tout le contenu."
+
+msgctxt "mtnma"
+msgid "All"
+msgstr "Tous"
+
+msgctxt "mtnma"
+msgid "Events"
+msgstr "Événements"
+
+msgctxt "mtnma"
+msgid "News"
+msgstr "Actualité"
+
+msgctxt "mtnma"
+msgid "Page"
+msgstr "Page"
+
+msgctxt "mtnma"
+msgid "Open"
+msgstr "Ouvrir"
+
+msgid "1 news item"
+msgid_plural "@count news items"
+msgstr[0] "1 actualité"
+msgstr[1] "@count actualités"
+
+msgid "1 service"
+msgid_plural "@count services"
+msgstr[0] "1 service"
+msgstr[1] "@count services"
+
+msgid "1 photo"
+msgid_plural "@count photos"
+msgstr[0] "1 photo"
+msgstr[1] "@count photos"

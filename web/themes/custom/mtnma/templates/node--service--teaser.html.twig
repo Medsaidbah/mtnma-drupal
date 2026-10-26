@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Service card in the digital services listing (see _mtnma_service_item()).
+ */
+#}
+{% import '@mtnma/includes/icons.twig' as icons %}
+<article class="service-card"><span class="service-icon">{{ icons.ui(service.icon) }}</span>
+<h3>{{ service.title }}</h3>
+<p>{{ service.description }}</p>
+{% if service.url %}
+<a class="text-link" href="{{ service.url }}" target="_blank" rel="noopener noreferrer">{{ service.link_text ?: 'Go to the service'|t }}{{ icons.external() }}
+</a>
+{% endif %}
+</article>

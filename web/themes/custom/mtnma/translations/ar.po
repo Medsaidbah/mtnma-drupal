@@ -252,6 +252,110 @@ msgstr "عرض المزيد"
 msgid "Back to the Media Centre"
 msgstr "العودة إلى المركز الإعلامي"
 
+msgid "Related pages"
+msgstr "الصفحات ذات الصلة"
+
+msgid "Ministry news"
+msgstr "أخبار الوزارة"
+
+msgid "Citizens"
+msgstr "المواطنون"
+
+msgid "Businesses"
+msgstr "المؤسسات"
+
+msgid "Education and family"
+msgstr "التعليم والأسرة"
+
+msgid "Search the news"
+msgstr "البحث في الأخبار"
+
+msgid "Search the news…"
+msgstr "ابحث في الأخبار..."
+
+msgid "Search for a service"
+msgstr "البحث عن خدمة"
+
+msgid "Search for a service…"
+msgstr "ابحث عن خدمة..."
+
+msgid "No results match your search."
+msgstr "لا توجد نتائج مطابقة للبحث."
+
+msgid "Read the original article"
+msgstr "قراءة الخبر الأصلي"
+
+msgid "Copy the article link"
+msgstr "نسخ رابط الخبر"
+
+msgid "Reference source: <a href=\":url\" target=\"_blank\" rel=\"noopener noreferrer\">official Ministry website</a>"
+msgstr "المصدر المرجعي: <a href=\":url\" target=\"_blank\" rel=\"noopener noreferrer\">الموقع الرسمي للوزارة</a>"
+
+msgid "Digital service"
+msgstr "خدمة رقمية"
+
+msgid "Procedures are completed on the official website of each service. This site is a guide to those websites."
+msgstr "تُنجز المعاملات على المواقع الرسمية لكل خدمة. هذا الموقع دليل للوصول إلى تلك المواقع."
+
+msgid "Pages, news and digital services of the Ministry."
+msgstr "صفحات الوزارة وأخبارها وخدماتها الرقمية."
+
+msgid "Search pages, news and services"
+msgstr "ابحث في الصفحات والأخبار والخدمات"
+
+msgid "Site pages"
+msgstr "صفحات الموقع"
+
+msgid "No page title matches. Press Search to look in all content."
+msgstr "لا توجد صفحة بهذا العنوان. اضغط «بحث» للبحث في كل المحتوى."
+
+msgctxt "mtnma"
+msgid "All"
+msgstr "الكل"
+
+msgctxt "mtnma"
+msgid "Events"
+msgstr "الفعاليات"
+
+msgctxt "mtnma"
+msgid "News"
+msgstr "خبر"
+
+msgctxt "mtnma"
+msgid "Page"
+msgstr "صفحة"
+
+msgctxt "mtnma"
+msgid "Open"
+msgstr "فتح"
+
+msgid "1 news item"
+msgid_plural "@count news items"
+msgstr[0] "خبر واحد"
+msgstr[1] "لا توجد أخبار"
+msgstr[2] "خبران"
+msgstr[3] "@count أخبار"
+msgstr[4] "@count خبراً"
+msgstr[5] "@count خبر"
+
+msgid "1 service"
+msgid_plural "@count services"
+msgstr[0] "خدمة واحدة"
+msgstr[1] "لا توجد خدمات"
+msgstr[2] "خدمتان"
+msgstr[3] "@count خدمات"
+msgstr[4] "@count خدمة"
+msgstr[5] "@count خدمة"
+
+msgid "1 photo"
+msgid_plural "@count photos"
+msgstr[0] "صورة واحدة"
+msgstr[1] "لا توجد صور"
+msgstr[2] "صورتان"
+msgstr[3] "@count صور"
+msgstr[4] "@count صورة"
+msgstr[5] "@count صورة"
+
 msgctxt "Long month name"
 msgid "January"
 msgstr "يناير"

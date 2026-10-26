@@ -2,7 +2,12 @@
 
 /**
  * @file
- * Seeds the Arabic/French homepage content taken from the static replicas.
+ * Seeds the Arabic/French site content taken from the static replicas.
+ *
+ * Section page bodies, article texts and categories come from
+ * content/reference.json and content/pages/*.html (see
+ * scripts/extract_reference.py). They are only written into fields that are
+ * still empty, and each item is done once.
  *
  * Usage: ddev drush php:script web/modules/custom/mtnma_site/scripts/seed.php
  *
@@ -10,6 +15,8 @@
  * once created, so editor changes made in the UI are never overwritten.
  */
 
+use Drupal\Component\Serialization\Json;
+use Drupal\Component\Utility\Html;
 use Drupal\Core\File\FileExists;
 use Drupal\file\Entity\File;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
@@ -75,7 +82,7 @@ if ($front && !$front->hasTranslation('fr')) {
   $front->addTranslation('fr', ['title' => 'Accueil', 'status' => 1])->save();
 }
 
-// Section pages: stubs that the menus link to, for editors to fill in.
+// Section pages that the menus link to; their content is added below.
 $pages = [
   'about' => ['عن الوزارة', 'Le Ministère'],
   'minister' => ['عن معالي الوزير', 'Le Ministre'],
@@ -131,6 +138,11 @@ $articles = [
     'ar' => ['رقمنة إجراءات تسجيل الطلاب في جامعة نواكشوط', 'رقمنة إجراءات تسجيل الطلاب في جامعة نواكشوط', 'إتاحة خدمة التسجيل الجامعي إلكترونياً على البوابة الوطنية للخدمات العمومية «خدماتي».', 'إطلاق خدمة التسجيل عن بعد لطلاب جامعة نواكشوط وربطها ببوابة خدمتي'],
     'fr' => ['Dématérialisation des procédures d’inscription des étudiants à l’Université de Nouakchott', 'Dématérialisation des procédures d’inscription des étudiants à l’Université de Nouakchott', 'Mise en ligne du service d’inscription universitaire sur le portail national des services publics « Khidmaty ».', 'Lancement du service d’inscription à distance des étudiants de l’Université de Nouakchott, relié au portail Khidmaty'],
   ],
+  'rimer' => [
+    'date' => '2024-06-11 10:00',
+    'ar' => ['تقديم الدراسات الفنية للشبكة الموريتانية للتعليم والبحث (RIMER)', '', ''],
+    'fr' => ['Présentation des études techniques du Réseau mauritanien d’enseignement et de recherche (RIMER)', '', ''],
+  ],
   'traffic' => [
     'date' => '2025-05-01 10:00', 'archive' => 1, 'promote' => 1, 'image' => 'news-services.jpg',
     'ar' => ['ربط النظام الرقمي للمرور ببوابة «خدماتي»', 'ربط النظام الرقمي للمرور ببوابة «خدماتي»', 'خدمة تتيح إشعار المواطنين بالمخالفات المرورية عبر البوابة الوطنية للخدمات الرقمية.'],
@@ -139,14 +151,14 @@ $articles = [
 ];
 $timezone = new \DateTimeZone('Africa/Nouakchott');
 foreach ($articles as $slug => $article) {
-  $file = $image($article['image']);
+  $file = isset($article['image']) ? $image($article['image']) : NULL;
   $hero = isset($article['hero']) ? $image($article['hero']) : NULL;
   $values = [];
   foreach (['ar', 'fr'] as $langcode) {
     [$title, $alt, $summary] = $article[$langcode];
     $values[$langcode] = [
       'title' => $title,
-      'field_image' => ['target_id' => $file->id(), 'alt' => $alt],
+      'field_image' => $file ? ['target_id' => $file->id(), 'alt' => $alt] : [],
       'field_hero_image' => $hero ? ['target_id' => $hero->id(), 'alt' => $article[$langcode][3]] : [],
       'body' => $summary ? ['value' => "<p>$summary</p>", 'summary' => $summary, 'format' => 'basic_html'] : [],
       'path' => ['alias' => "/news/$slug"],
@@ -248,5 +260,82 @@ foreach ($footer as $group => [[$ar, $fr], $slugs]) {
     $link('footer', $slug, $page($slug), $link_ar, $link_fr, $i, $heading);
   }
 }
+
+// Section page, article and service content from the reference site.
+$reference = Json::decode(file_get_contents(__DIR__ . '/../content/reference.json'));
+$file_urls = \Drupal::service('file_url_generator');
+// Reference images ("assets/minister.jpg") become managed files.
+$with_files = fn(string $html) => preg_replace_callback('/src="assets\/([^"]+)"/', fn(array $m) => 'src="' . $file_urls->generateString($image($m[1])->getFileUri()) . '"', $html);
+
+foreach ($reference['pages'] as $slug => $info) {
+  if (isset($seeded["content:page:$slug"])) {
+    continue;
+  }
+  $section = $page_nodes[$slug];
+  if ($section->get('field_related')->isEmpty()) {
+    $section->set('field_related', array_map(fn(string $related) => ['target_id' => $page_nodes[$related]->id()], $info['related']));
+  }
+  if ($section->get('field_listing')->isEmpty()) {
+    $section->set('field_listing', $info['listing']);
+  }
+  foreach (['ar', 'fr'] as $langcode) {
+    $translation = $section->getTranslation($langcode);
+    if ($translation->get('body')->isEmpty()) {
+      $html = file_get_contents(__DIR__ . "/../content/pages/$slug.$langcode.html");
+      $translation->set('body', ['value' => $with_files($html), 'format' => 'mtnma_html']);
+    }
+    if ($translation->get('field_lead')->isEmpty()) {
+      $translation->set('field_lead', $info['lead'][$langcode]);
+    }
+  }
+  $section->save();
+  $remember("content:page:$slug", (int) $section->id());
+}
+
+foreach ($reference['articles'] as $slug => $info) {
+  $article = isset($seeded["node:article:$slug"]) ? Node::load($seeded["node:article:$slug"]) : NULL;
+  if (!$article || isset($seeded["content:article:$slug"])) {
+    continue;
+  }
+  if ($article->get('field_category')->isEmpty()) {
+    $article->set('field_category', $info['category']);
+  }
+  foreach (['ar', 'fr'] as $langcode) {
+    $translation = $article->getTranslation($langcode);
+    $paragraphs = $info[$langcode]['paragraphs'];
+    $body = $translation->get('body')->first();
+    // Replace an empty body, or the one-paragraph summary seeded earlier.
+    if ($paragraphs && (!$body || $body->value === '<p>' . $body->summary . '</p>')) {
+      $translation->set('body', [
+        'value' => implode("\n", array_map(fn(string $p) => '<p>' . Html::escape($p) . '</p>', $paragraphs)),
+        'summary' => $body?->summary ?: $paragraphs[0],
+        'format' => 'basic_html',
+      ]);
+    }
+    if ($translation->get('field_source_link')->isEmpty() && $info[$langcode]['source']) {
+      $translation->set('field_source_link', ['uri' => $info[$langcode]['source']]);
+    }
+  }
+  $article->save();
+  $remember("content:article:$slug", (int) $article->id());
+}
+
+foreach (array_keys($services) as $slug) {
+  $service = Node::load($seeded["node:service:$slug"] ?? 0);
+  $category = $service ? ($reference['services'][$service->getTranslation('ar')->label()] ?? NULL) : NULL;
+  if ($category && $service->get('field_service_category')->isEmpty()) {
+    $service->set('field_service_category', $category)->save();
+  }
+}
+
+// Index all content for the site search now rather than on the next cron
+// runs (automated_cron keeps it current after editor changes).
+$search = \Drupal::entityTypeManager()->getStorage('search_page')->load('node_search')->getPlugin();
+$search->markForReindex();
+do {
+  $search->updateIndex();
+  $status = $search->indexStatus();
+} while ($status['remaining'] > 0);
+echo "Search index: {$status['total']} nodes" . PHP_EOL;
 
 echo 'Seeded items: ' . count($seeded) . PHP_EOL;

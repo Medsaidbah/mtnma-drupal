@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Section page. The body holds the replica's sections (cards, documents,
+ * forms); pages with a listing show it first, in a content section that the
+ * body text (notes, links) continues.
+ */
+#}
+{% if listing %}
+<section class="{{ listing_class }}">
+<div class="wrap">
+{{ listing }}
+{{ content.body }}
+</div>
+</section>
+{% else %}
+{{ content.body }}
+{% endif %}

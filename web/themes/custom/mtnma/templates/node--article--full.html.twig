@@ -9,14 +9,23 @@
 <section class="content-section">
 <div class="wrap">
 <article{{ attributes.addClass('article') }}>
-<div class="article-meta">{% include '@mtnma/includes/news-date.html.twig' with {item: article_meta} %}</div>
+<div class="article-meta">{% include '@mtnma/includes/news-date.html.twig' with {item: article_meta} %}{% if article_meta.category %}<span>{{ article_meta.category }}</span>{% endif %}</div>
 {% if article_image %}
 <img class="article-image" src="{{ article_image.url }}" alt="{{ article_image.alt }}"{% if article_image.position %} style="object-position:{{ article_image.position }}"{% endif %}>
 {% endif %}
 {{ content.body }}
 <div class="article-actions">
-<a class="btn" href="{{ media_url }}">{{ 'Back to the Media Centre'|t }} {{ icons.arrow() }}</a>
+{% if source_url %}
+<a class="btn" href="{{ source_url }}" target="_blank" rel="noopener noreferrer">{{ 'Read the original article'|t }}{{ icons.external() }}
+</a>
+{% endif %}
+<button class="btn outline" id="copy-link" type="button">{{ 'Copy the article link'|t }}</button>
+<a class="btn outline" href="{{ media_url }}">{{ 'All news'|t }}</a>
 </div>
+<p id="copy-status" class="form-status" role="status"></p>
+{% if source_url %}
+<p class="source-note">{{ 'Reference source: <a href=":url" target="_blank" rel="noopener noreferrer">official Ministry website</a>'|t({':url': source_url}) }}</p>
+{% endif %}
 </article>
 </div>
 </section>

@@ -1,7 +1,8 @@
 {#
 /**
  * @file
- * Client-side page finder (filtered by interactions.js) over all_pages.
+ * Header search: a keyword form for the site search (search_url), with a
+ * quick finder over all_pages that interactions.js filters while typing.
  */
 #}
 {% import '@mtnma/includes/icons.twig' as icons %}
@@ -11,11 +12,15 @@
 <button class="icon-btn" data-close aria-label="{{ 'Close search'|t }}">{{ icons.ui('close') }}
 </button>
 </div>
-<label for="site-search">{{ 'Search for a page or a service'|t }}</label><input id="site-search" type="search" placeholder="{{ 'Example: digital services'|t }}">
+<form class="dialog-search" action="{{ search_url }}" method="get" role="search">
+<label for="site-search">{{ 'Search pages, news and services'|t }}</label>
+<div class="dialog-search-row"><input id="site-search" name="keys" type="search" required placeholder="{{ 'Example: digital services'|t }}"><button class="btn" type="submit">{{ 'Search'|t }}</button></div>
+</form>
+<p class="dialog-subtitle">{{ 'Site pages'|t }}</p>
 <div id="search-results">
 {% for item in all_pages %}
 <a href="{{ item.url }}">{{ item.title }}{{ icons.arrow() }}
 </a>
 {% endfor %}
 </div>
-<p id="search-empty" hidden>{{ 'No results. Try another word.'|t }}</p></dialog>
+<p id="search-empty" hidden>{{ 'No page title matches. Press Search to look in all content.'|t }}</p></dialog>

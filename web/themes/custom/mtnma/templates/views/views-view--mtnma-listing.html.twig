@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ * News, services and photo listings in the replica's card grids.
+ *
+ * Variables (mtnma_preprocess_views_view()):
+ * - filter_links: Category links {label, url, active}; empty for photos.
+ * - filter_action, filter_category, filter_keys, filter_label,
+ *   filter_placeholder: keyword form.
+ * - result_count: "N news items" line.
+ * - listing_grid: Grid class (news-grid, services-grid, photo-grid).
+ */
+#}
+{% import '@mtnma/includes/icons.twig' as icons %}
+<div{{ attributes.addClass('listing') }}>
+{% if filter_links %}
+<form class="filters" method="get" action="{{ filter_action }}" role="search">
+{% for link in filter_links %}
+<a class="filter-link{{ link.active ? ' is-active' }}" href="{{ link.url }}"{% if link.active %} aria-current="true"{% endif %}>{{ link.label }}</a>
+{% endfor %}
+{% if filter_category %}<input type="hidden" name="category" value="{{ filter_category }}">{% endif %}
+<label class="filter-search">{{ icons.ui('search') }}<input name="keys" type="search" value="{{ filter_keys }}" aria-label="{{ filter_label }}" placeholder="{{ filter_placeholder }}">
+</label>
+<button class="visually-hidden" type="submit">{{ 'Search'|t }}</button>
+</form>
+<p class="results-count" role="status">{{ result_count }}</p>
+{% endif %}
+{% if rows %}
+<div class="{{ listing_grid }}">
+{{ rows }}
+</div>
+{% elseif not filter_links %}
+<p class="results-count">{{ result_count }}</p>
+{% endif %}
+{{ pager }}
+</div>

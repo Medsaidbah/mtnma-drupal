@@ -5,11 +5,14 @@
  * Install hooks for the MTNIMA site module.
  */
 
+use Drupal\Component\Serialization\Yaml;
+use Drupal\Core\Entity\Entity\EntityViewMode;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\filter\Entity\FilterFormat;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\language\Entity\ContentLanguageSettings;
 use Drupal\node\Entity\NodeType;
+use Drupal\search\Entity\SearchPage;
 
 /**
  * Implements hook_install().
@@ -40,6 +43,26 @@ function mtnma_site_ensure_content_model(): void {
       ],
     ])->save();
   }
+  // Section page bodies keep the replica's markup (sections, cards, inline
+  // SVG icons, the contact form), so they use a format without an HTML
+  // filter or editor. No role is granted it: only administrators can edit it.
+  if (!FilterFormat::load('mtnma_html')) {
+    FilterFormat::create([
+      'format' => 'mtnma_html',
+      'name' => 'Page layout HTML (administrators)',
+      'weight' => 5,
+      'filters' => [
+        'mtnma_language_links' => ['status' => TRUE],
+      ],
+    ])->save();
+  }
+  if (!EntityViewMode::load('node.photo')) {
+    EntityViewMode::create([
+      'id' => 'node.photo',
+      'targetEntityType' => 'node',
+      'label' => 'Photo',
+    ])->save();
+  }
   if (!NodeType::load('service')) {
     NodeType::create([
       'type' => 'service',
@@ -47,9 +70,17 @@ function mtnma_site_ensure_content_model(): void {
       'description' => 'A government platform listed in the homepage digital services grid.',
     ])->save();
   }
-  $article = NodeType::load('article');
-  if ($article && !FieldConfig::loadByName('node', 'article', 'body')) {
-    node_add_body_field($article);
+  foreach (['article', 'page'] as $bundle) {
+    // A stub "field.field.node.page.body" holding only a label (no field
+    // type) was left in some prototype databases; it cannot be loaded.
+    $config = \Drupal::configFactory()->getEditable("field.field.node.$bundle.body");
+    if (!$config->isNew() && !$config->get('field_type')) {
+      $config->delete();
+    }
+    $type = NodeType::load($bundle);
+    if ($type && !FieldConfig::loadByName('node', $bundle, 'body')) {
+      node_add_body_field($type);
+    }
   }
 
   $fields = [
@@ -61,6 +92,12 @@ function mtnma_site_ensure_content_model(): void {
     ['service', 'field_service_description', 'string_long', 'Description', TRUE],
     ['service', 'field_service_link', 'link', 'Service link', TRUE, ['link_type' => 16, 'title' => 1], 'The link text is the call to action; leave it empty for "Go to the service".'],
     ['service', 'field_service_icon', 'list_string', 'Icon', FALSE],
+    ['service', 'field_service_category', 'list_string', 'Audience', FALSE, [], 'Filter of the services listing this service appears under.'],
+    ['article', 'field_category', 'list_string', 'Category', FALSE, [], 'Filter of the Media Centre listing this article appears under.'],
+    ['article', 'field_source_link', 'link', 'Original article', TRUE, ['link_type' => 16, 'title' => 0], 'The article on the official Ministry website.'],
+    ['page', 'field_lead', 'string', 'Banner lead', TRUE, [], 'Short sentence shown under the title in the page banner.'],
+    ['page', 'field_related', 'entity_reference', 'Related pages', FALSE, ['handler' => 'default:node', 'handler_settings' => ['target_bundles' => ['page' => 'page']]], 'Pages listed in the bar under the banner, in order. Include this page to show it as the current one.'],
+    ['page', 'field_listing', 'list_string', 'Listing', FALSE, [], 'Drupal listing shown above the body text.'],
   ];
   $storage_settings = [
     'field_service_icon' => ['allowed_values' => [
@@ -71,7 +108,23 @@ function mtnma_site_ensure_content_model(): void {
       'building' => 'Building',
       'globe' => 'Globe',
     ]],
+    'field_service_category' => ['allowed_values' => [
+      'citizens' => 'Citizens',
+      'business' => 'Businesses',
+      'education' => 'Education and family',
+    ]],
+    'field_category' => ['allowed_values' => [
+      'news' => 'Ministry news',
+      'events' => 'Events',
+    ]],
+    'field_listing' => ['allowed_values' => [
+      'news' => 'News (Media Centre)',
+      'services' => 'Digital services',
+      'gallery' => 'Photo gallery',
+    ]],
+    'field_related' => ['target_type' => 'node'],
   ];
+  $cardinality = ['field_related' => -1];
   foreach ($fields as $definition) {
     [$bundle, $name, $type, $label, $translatable] = $definition;
     $settings = $definition[5] ?? [];
@@ -81,6 +134,7 @@ function mtnma_site_ensure_content_model(): void {
         'entity_type' => 'node',
         'type' => $type,
         'settings' => $storage_settings[$name] ?? [],
+        'cardinality' => $cardinality[$name] ?? 1,
       ])->save();
     }
     if (!FieldConfig::loadByName('node', $bundle, $name)) {
@@ -96,16 +150,50 @@ function mtnma_site_ensure_content_model(): void {
     }
   }
 
+  // Fields after the "|" are form-only: the theme prints them itself, and
+  // leaving them out of the default display keeps them out of search results.
   $form = \Drupal::service('entity_display.repository');
-  foreach (['article' => ['body', 'field_image', 'field_hero_image', 'field_hero_title', 'field_image_position', 'field_archive'], 'service' => ['field_service_description', 'field_service_link', 'field_service_icon']] as $bundle => $names) {
+  foreach ([
+    'article' => ['body', 'field_image', 'field_hero_image', 'field_hero_title', 'field_image_position', 'field_archive', '|', 'field_category', 'field_source_link'],
+    'service' => ['field_service_description', 'field_service_link', 'field_service_icon', '|', 'field_service_category'],
+    'page' => ['field_lead', 'body', '|', 'field_related', 'field_listing'],
+  ] as $bundle => $names) {
     $form_display = $form->getFormDisplay('node', $bundle);
     $view_display = $form->getViewDisplay('node', $bundle);
+    $displayed = TRUE;
     foreach ($names as $weight => $name) {
+      if ($name === '|') {
+        $displayed = FALSE;
+        continue;
+      }
       $form_display->setComponent($name, ['weight' => $weight + 1]);
-      $view_display->setComponent($name, ['weight' => $weight + 1]);
+      if ($displayed) {
+        $view_display->setComponent($name, ['weight' => $weight + 1, 'label' => 'hidden']);
+      }
+      else {
+        $view_display->removeComponent($name);
+      }
     }
     $form_display->save();
     $view_display->save();
+  }
+
+  // Listings embedded in the Media Centre, services and gallery pages.
+  $views = \Drupal::entityTypeManager()->getStorage('view');
+  $directory = \Drupal::service('extension.list.module')->getPath('mtnma_site') . '/config/views';
+  foreach (glob("$directory/views.view.*.yml") as $file) {
+    $values = Yaml::decode(file_get_contents($file));
+    if (!$views->load($values['id'])) {
+      $views->createFromStorageRecord($values)->save();
+    }
+  }
+
+  // Site search: the content search page, open to visitors.
+  if (SearchPage::load('node_search')) {
+    \Drupal::configFactory()->getEditable('search.settings')->set('default_page', 'node_search')->save();
+  }
+  foreach (['anonymous', 'authenticated'] as $role) {
+    user_role_grant_permissions($role, ['access content', 'search content']);
   }
 
   // Articles, services, pages and menu links are translated per language.
@@ -118,4 +206,13 @@ function mtnma_site_ensure_content_model(): void {
     }
   }
   \Drupal::service('router.builder')->setRebuildNeeded();
+}
+
+/**
+ * Adds section page fields, news and service categories, listings and search.
+ */
+function mtnma_site_update_11001(): string {
+  \Drupal::service('module_installer')->install(['search_node', 'automated_cron']);
+  mtnma_site_ensure_content_model();
+  return 'Run scripts/seed.php to fill the section pages and index the content.';
 }

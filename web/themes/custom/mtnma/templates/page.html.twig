@@ -4,7 +4,8 @@
  * Page layout: replica header and footer around Drupal-rendered content.
  *
  * Front-page sections are rendered by node--front.html.twig inside
- * page.content; other pages get the replica's page banner.
+ * page.content; other pages get the replica's page banner, and section pages
+ * the bar of related pages under it (mtnma_preprocess_page()).
  */
 #}
 {% include '@mtnma/includes/header.html.twig' %}
@@ -25,8 +26,23 @@
         {% if page_banner.lead %}<p>{{ page_banner.lead }}</p>{% endif %}
       </div>
     </section>
+    {% if subnav %}
+      <nav class="subnav" aria-label="{{ 'Related pages'|t }}">
+        <div class="wrap">
+          {% for link in subnav %}
+            <a{% if link.active %} class="active" aria-current="page"{% endif %} href="{{ link.url }}">{{ link.title }}</a>
+          {% endfor %}
+        </div>
+      </nav>
+    {% endif %}
   {% endif %}
-  {{ page.content }}
+  {% if wrap_content %}
+    <section class="content-section">
+      <div class="wrap">{{ page.content }}</div>
+    </section>
+  {% else %}
+    {{ page.content }}
+  {% endif %}
 </main>
 {% include '@mtnma/includes/footer.html.twig' %}
 {% include '@mtnma/includes/search-dialog.html.twig' %}

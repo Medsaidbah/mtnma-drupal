@@ -1,0 +1,13 @@
+{#
+/**
+ * @file
+ * One site search result (mtnma_preprocess_search_result()).
+ */
+#}
+{% import '@mtnma/includes/icons.twig' as icons %}
+<article class="search-result">
+<div class="search-result-meta"><span class="pill">{{ type_label }}</span>{% if item %}{% include '@mtnma/includes/news-date.html.twig' %}{% endif %}</div>
+<h3><a href="{{ url }}">{{ title }}</a></h3>
+{% if snippet %}<p>{{ snippet }}</p>{% endif %}
+<a class="text-link" href="{{ url }}" tabindex="-1" aria-hidden="true">{{ 'Open'|t({}, {'context': 'mtnma'}) }} {{ icons.arrow() }}</a>
+</article>

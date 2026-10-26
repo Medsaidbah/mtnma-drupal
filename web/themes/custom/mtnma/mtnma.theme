@@ -9,6 +9,7 @@ use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Menu\MenuTreeParameters;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
+use Drupal\views\ViewExecutable;
 
 /**
  * Internal pages linked from the homepage sections, keyed by template name.
@@ -98,17 +99,55 @@ function mtnma_preprocess_page(array &$variables): void {
     }
   }
   $variables['all_pages'] = array_values($pages);
+  $variables['search_url'] = Url::fromRoute('search.view_node_search')->toString();
 
-  // Node pages show their title in the replica's page banner.
-  $node = \Drupal::routeMatch()->getParameter('node');
-  if ($node instanceof NodeInterface && \Drupal::routeMatch()->getRouteName() === 'entity.node.canonical') {
+  // Node pages show their title in the replica's page banner; section pages
+  // add their lead and the bar of related pages below it.
+  $route = \Drupal::routeMatch();
+  $node = $route->getParameter('node');
+  if ($node instanceof NodeInterface && $route->getRouteName() === 'entity.node.canonical') {
+    $node = \Drupal::service('entity.repository')->getTranslationFromContext($node, $langcode);
     $variables['page_banner'] = ['title' => $node->label()];
+    if ($node->hasField('field_lead')) {
+      $variables['page_banner']['lead'] = $node->get('field_lead')->value;
+      $variables['subnav'] = _mtnma_related_pages($node, $langcode, $cache);
+    }
     $cache->addCacheableDependency($node);
+  }
+  elseif ($route->getRouteName() === 'search.view_node_search') {
+    $variables['page_banner'] = [
+      'title' => t('Search the site'),
+      'lead' => t('Pages, news and digital services of the Ministry.'),
+    ];
+    $variables['wrap_content'] = TRUE;
   }
   if (!empty($variables['page_banner']) || !empty($variables['is_front'])) {
     unset($variables['page']['content']['mtnma_page_title']);
   }
   $cache->applyTo($variables);
+}
+
+/**
+ * Returns the "related pages" bar of a section page.
+ *
+ * @return array
+ *   Links {title, url, active}, in the editor's order.
+ */
+function _mtnma_related_pages(NodeInterface $node, string $langcode, CacheableMetadata $cache): array {
+  $links = [];
+  foreach ($node->get('field_related')->referencedEntities() as $related) {
+    if (!$related->access('view') || !$related->hasTranslation($langcode)) {
+      continue;
+    }
+    $related = $related->getTranslation($langcode);
+    $cache->addCacheableDependency($related);
+    $links[] = [
+      'title' => $related->label(),
+      'url' => $related->toUrl()->toString(),
+      'active' => $related->id() === $node->id(),
+    ];
+  }
+  return $links;
 }
 
 /**
@@ -191,18 +230,50 @@ function _mtnma_is_front_node(NodeInterface $node): bool {
 function mtnma_preprocess_node(array &$variables): void {
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
-  if ($variables['view_mode'] !== 'full') {
-    return;
-  }
-  if (_mtnma_is_front_node($node)) {
+  $view_mode = $variables['view_mode'];
+  if ($view_mode === 'full' && _mtnma_is_front_node($node)) {
     _mtnma_preprocess_front($variables);
   }
-  elseif ($node->bundle() === 'article') {
+  elseif ($node->bundle() === 'article' && in_array($view_mode, ['full', 'teaser', 'photo'], TRUE)) {
     $item = _mtnma_article_item($node);
-    $variables['article_meta'] = $item;
-    $variables['article_image'] = $item['image'] ? ['url' => $item['image'], 'alt' => $item['alt'], 'position' => $item['position']] : NULL;
-    $variables['media_url'] = Url::fromUserInput('/media')->toString();
+    $variables['item'] = $item;
+    $variables['images'] = _mtnma_images_url();
+    if ($view_mode === 'full') {
+      $variables['article_meta'] = $item;
+      $variables['article_image'] = $item['image'] ? ['url' => $item['image'], 'alt' => $item['alt'], 'position' => $item['position']] : NULL;
+      $variables['media_url'] = Url::fromUserInput('/media')->toString();
+      $source = $node->get('field_source_link')->first();
+      $variables['source_url'] = $source ? $source->getUrl()->toString() : NULL;
+    }
   }
+  elseif ($node->bundle() === 'service' && in_array($view_mode, ['full', 'teaser'], TRUE)) {
+    $variables['service'] = _mtnma_service_item($node);
+    $variables['services_url'] = Url::fromUserInput('/services')->toString();
+  }
+  elseif ($node->bundle() === 'page' && $view_mode === 'full' && $node->hasField('field_listing')) {
+    // Section pages with a Drupal listing (news, services, photos) show it
+    // above their body text.
+    $listing = $node->get('field_listing')->value;
+    if ($listing) {
+      $variables['listing'] = views_embed_view("mtnma_$listing", 'embed_1');
+      $variables['listing_class'] = $listing === 'gallery' ? 'content-section' : 'content-section soft';
+    }
+  }
+}
+
+/**
+ * Flattens a digital service into the values the replica templates print.
+ */
+function _mtnma_service_item(NodeInterface $node): array {
+  $link = $node->get('field_service_link')->first();
+  return [
+    'title' => $node->label(),
+    'description' => $node->get('field_service_description')->value,
+    'url' => $link ? $link->getUrl()->toString() : '',
+    'link_text' => $link?->title,
+    'icon' => $node->get('field_service_icon')->value ?: 'document',
+    'page_url' => $node->toUrl()->toString(),
+  ];
 }
 
 /**
@@ -238,16 +309,7 @@ function _mtnma_preprocess_front(array &$variables): void {
   $variables['top_news'] = array_slice($items, 0, 4);
   $variables['media_news'] = array_slice($items, 3, 3);
 
-  $variables['services'] = array_map(function (NodeInterface $node) {
-    $link = $node->get('field_service_link')->first();
-    return [
-      'title' => $node->label(),
-      'description' => $node->get('field_service_description')->value,
-      'url' => $link ? $link->getUrl()->toString() : '',
-      'link_text' => $link?->title,
-      'icon' => $node->get('field_service_icon')->value ?: 'document',
-    ];
-  }, _mtnma_load_nodes('service', $langcode, ['promote' => 1], 12, 'ASC'));
+  $variables['services'] = array_map('_mtnma_service_item', _mtnma_load_nodes('service', $langcode, ['promote' => 1], 12, 'ASC'));
 
   $variables['#cache']['tags'][] = 'node_list';
   $variables['#cache']['contexts'][] = 'languages';
@@ -290,8 +352,137 @@ function _mtnma_article_item(NodeInterface $node): array {
     'alt' => $image?->alt ?? '',
     'position' => $node->get('field_image_position')->value,
     'archive' => (bool) $node->get('field_archive')->value,
+    'category' => match ($node->get('field_category')->value) {
+      'news' => t('Ministry news'),
+      'events' => t('Events', [], ['context' => 'mtnma']),
+      default => NULL,
+    },
     'date' => \Drupal::service('date.formatter')->format($created, 'custom', 'j F Y', NULL, $node->language()->getId()),
     'iso' => date('Y-m-d', $created),
     'summary' => $body ? ($body->summary ?: text_summary(strip_tags($body->value), NULL, 200)) : '',
   ];
+}
+
+/**
+ * Filter buttons of the listings, keyed by view ID: query value => label.
+ */
+function _mtnma_listing_filters(string $view_id): array {
+  return match ($view_id) {
+    'mtnma_news' => [
+      '' => t('All', [], ['context' => 'mtnma']),
+      'news' => t('Ministry news'),
+      'events' => t('Events', [], ['context' => 'mtnma']),
+    ],
+    'mtnma_services' => [
+      '' => t('All services'),
+      'citizens' => t('Citizens'),
+      'business' => t('Businesses'),
+      'education' => t('Education and family'),
+    ],
+    default => [],
+  };
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for views_view.
+ *
+ * The news and services listings print the replica's filter bar: category
+ * links and a keyword box, read by the view's exposed filters ("category"
+ * and "keys" in the query string).
+ */
+function mtnma_preprocess_views_view(array &$variables): void {
+  /** @var \Drupal\views\ViewExecutable $view */
+  $view = $variables['view'];
+  if (!str_starts_with($view->id(), 'mtnma_')) {
+    return;
+  }
+  $input = $view->getExposedInput();
+  $category = is_string($input['category'] ?? NULL) ? $input['category'] : '';
+  $keys = is_string($input['keys'] ?? NULL) ? trim($input['keys']) : '';
+  $variables['filter_links'] = [];
+  foreach (_mtnma_listing_filters($view->id()) as $value => $label) {
+    $query = array_filter(['category' => $value, 'keys' => $keys], 'strlen');
+    $variables['filter_links'][] = [
+      'label' => $label,
+      'url' => Url::fromRoute('<current>', [], ['query' => $query])->toString(),
+      'active' => $value === $category,
+    ];
+  }
+  $variables['listing_grid'] = match ($view->id()) {
+    'mtnma_services' => 'services-grid',
+    'mtnma_gallery' => 'photo-grid',
+    default => 'news-grid',
+  };
+  $services = $view->id() === 'mtnma_services';
+  $variables['filter_label'] = $services ? t('Search for a service') : t('Search the news');
+  $variables['filter_placeholder'] = $services ? t('Search for a service…') : t('Search the news…');
+  $variables['filter_category'] = $category;
+  $variables['filter_keys'] = $keys;
+  $variables['filter_action'] = Url::fromRoute('<current>')->toString();
+  $total = (int) ($view->pager?->getTotalItems() ?? count($view->result));
+  $variables['result_count'] = _mtnma_result_count($view, $total);
+}
+
+/**
+ * Returns the "N news items" line printed above a listing.
+ */
+function _mtnma_result_count(ViewExecutable $view, int $total): string {
+  if ($total === 0) {
+    return (string) t('No results match your search.');
+  }
+  return (string) match ($view->id()) {
+    'mtnma_services' => \Drupal::translation()->formatPlural($total, '1 service', '@count services'),
+    'mtnma_gallery' => \Drupal::translation()->formatPlural($total, '1 photo', '@count photos'),
+    default => \Drupal::translation()->formatPlural($total, '1 news item', '@count news items'),
+  };
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for search_result.
+ */
+function mtnma_preprocess_search_result(array &$variables): void {
+  $node = $variables['result']['node'] ?? NULL;
+  if (!$node instanceof NodeInterface) {
+    return;
+  }
+  $variables['type_label'] = match ($node->bundle()) {
+    'article' => t('News', [], ['context' => 'mtnma']),
+    'service' => t('Digital service'),
+    default => t('Page', [], ['context' => 'mtnma']),
+  };
+  if ($node->bundle() === 'article') {
+    $variables['item'] = _mtnma_article_item($node);
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for search_form.
+ *
+ * Gives the results page search box the replica's look; the advanced search
+ * options stay available to editors who have that permission.
+ */
+function mtnma_form_search_form_alter(array &$form): void {
+  $form['#attributes']['class'][] = 'site-search-form';
+  if (isset($form['basic']['keys'])) {
+    $form['basic']['keys']['#title_display'] = 'invisible';
+    $form['basic']['keys']['#attributes']['placeholder'] = t('Search pages, news and services');
+  }
+  if (isset($form['basic']['submit'])) {
+    $form['basic']['submit']['#attributes']['class'][] = 'btn';
+  }
+  unset($form['help_link']);
+}
+
+/**
+ * Implements hook_theme_suggestions_alter().
+ *
+ * The site listings (views tagged "mtnma") share the *--mtnma-listing
+ * templates.
+ */
+function mtnma_theme_suggestions_alter(array &$suggestions, array $variables, string $hook): void {
+  if (in_array($hook, ['views_view', 'views_view_unformatted', 'views_view_fields'], TRUE)
+    && ($variables['view'] ?? NULL) instanceof ViewExecutable
+    && $variables['view']->storage->get('tag') === 'mtnma') {
+    $suggestions[] = $hook . '__mtnma_listing';
+  }
 }

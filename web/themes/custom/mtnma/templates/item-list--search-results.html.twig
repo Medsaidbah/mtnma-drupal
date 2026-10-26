@@ -1,0 +1,8 @@
+{# Search results list, without list markup or the "Search results" title. #}
+{% if items %}
+<div class="search-results">
+{% for item in items %}{{ item.value }}{% endfor %}
+</div>
+{% else %}
+{{ empty }}
+{% endif %}

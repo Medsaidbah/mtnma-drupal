@@ -94,6 +94,55 @@ STRINGS = {
     'News and events from the Ministry archive': ('أخبار وفعاليات من أرشيف الوزارة', 'Actualités et événements issus des archives du Ministère'),
     'See more': ('عرض المزيد', 'Voir plus'),
     'Back to the Media Centre': ('العودة إلى المركز الإعلامي', 'Retour au Centre des médias'),
+    # Section pages, listings and articles.
+    'Related pages': ('الصفحات ذات الصلة', 'Pages associées'),
+    'Ministry news': ('أخبار الوزارة', 'Actualités du Ministère'),
+    'Citizens': ('المواطنون', 'Citoyens'),
+    'Businesses': ('المؤسسات', 'Entreprises'),
+    'Education and family': ('التعليم والأسرة', 'Éducation et famille'),
+    'Search the news': ('البحث في الأخبار', 'Rechercher dans les actualités'),
+    'Search the news…': ('ابحث في الأخبار...', 'Rechercher une actualité...'),
+    'Search for a service': ('البحث عن خدمة', 'Rechercher un service'),
+    'Search for a service…': ('ابحث عن خدمة...', 'Rechercher un service...'),
+    'No results match your search.': ('لا توجد نتائج مطابقة للبحث.', 'Aucun résultat ne correspond à la recherche.'),
+    'Read the original article': ('قراءة الخبر الأصلي', 'Lire l’article original'),
+    'Copy the article link': ('نسخ رابط الخبر', 'Copier le lien de l’article'),
+    'Reference source: <a href=":url" target="_blank" rel="noopener noreferrer">official Ministry website</a>': (
+        'المصدر المرجعي: <a href=":url" target="_blank" rel="noopener noreferrer">الموقع الرسمي للوزارة</a>',
+        'Source\u00a0: <a href=":url" target="_blank" rel="noopener noreferrer">site officiel du Ministère</a>'),
+    'Digital service': ('خدمة رقمية', 'Service numérique'),
+    'Procedures are completed on the official website of each service. This site is a guide to those websites.': (
+        'تُنجز المعاملات على المواقع الرسمية لكل خدمة. هذا الموقع دليل للوصول إلى تلك المواقع.',
+        'Les démarches s’effectuent sur le site officiel de chaque service. Ce site est un guide pour y accéder.'),
+    # Site search.
+    'Pages, news and digital services of the Ministry.': ('صفحات الوزارة وأخبارها وخدماتها الرقمية.', 'Pages, actualités et services numériques du Ministère.'),
+    'Search pages, news and services': ('ابحث في الصفحات والأخبار والخدمات', 'Rechercher dans les pages, les actualités et les services'),
+    'Site pages': ('صفحات الموقع', 'Pages du site'),
+    'No page title matches. Press Search to look in all content.': ('لا توجد صفحة بهذا العنوان. اضغط «بحث» للبحث في كل المحتوى.', 'Aucun titre de page ne correspond. Appuyez sur «\u00a0Rechercher\u00a0» pour chercher dans tout le contenu.'),
+}
+
+# Generic words that core also translates; the "mtnma" context keeps the
+# theme's wording without changing core's translation.
+CONTEXT_STRINGS = {
+    'All': ('الكل', 'Tous'),
+    'Events': ('الفعاليات', 'Événements'),
+    'News': ('خبر', 'Actualité'),
+    'Page': ('صفحة', 'Page'),
+    'Open': ('فتح', 'Ouvrir'),
+}
+
+# Result counts above the listings: (singular, plural) -> (Arabic forms in
+# the order of the Arabic plural formula: 1, 0, 2, 3-10, 11-99, 100+), (French).
+PLURALS = {
+    ('1 news item', '@count news items'): (
+        ['خبر واحد', 'لا توجد أخبار', 'خبران', '@count أخبار', '@count خبراً', '@count خبر'],
+        ['1 actualité', '@count actualités']),
+    ('1 service', '@count services'): (
+        ['خدمة واحدة', 'لا توجد خدمات', 'خدمتان', '@count خدمات', '@count خدمة', '@count خدمة'],
+        ['1 service', '@count services']),
+    ('1 photo', '@count photos'): (
+        ['صورة واحدة', 'لا توجد صور', 'صورتان', '@count صور', '@count صورة', '@count صورة'],
+        ['1 photo', '@count photos']),
 }
 
 # Long month names as written in Mauritania (core Arabic uses "أيلول/سبتمبر").
@@ -111,6 +160,11 @@ def build(index, langcode, plural):
              f'"Plural-Forms: {plural}\\n"', '']
     for source, targets in STRINGS.items():
         lines += [f'msgid {quote(source)}', f'msgstr {quote(targets[index])}', '']
+    for source, targets in CONTEXT_STRINGS.items():
+        lines += ['msgctxt "mtnma"', f'msgid {quote(source)}', f'msgstr {quote(targets[index])}', '']
+    for (singular, plural), targets in PLURALS.items():
+        lines += [f'msgid {quote(singular)}', f'msgid_plural {quote(plural)}']
+        lines += [f'msgstr[{i}] {quote(form)}' for i, form in enumerate(targets[index])] + ['']
     if langcode == 'ar':
         for en, ar in zip(MONTHS_EN, MONTHS_AR):
             lines += ['msgctxt "Long month name"', f'msgid {quote(en)}', f'msgstr {quote(ar)}', '']

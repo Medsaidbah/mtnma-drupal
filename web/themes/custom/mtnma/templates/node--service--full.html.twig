@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Digital service page (reached from the site search); the title is in the
+ * page banner.
+ */
+#}
+{% import '@mtnma/includes/icons.twig' as icons %}
+<section class="content-section">
+<div class="wrap">
+<article{{ attributes.addClass('article') }}>
+<p class="intro">{{ service.description }}</p>
+<div class="article-actions">
+{% if service.url %}
+<a class="btn" href="{{ service.url }}" target="_blank" rel="noopener noreferrer">{{ service.link_text ?: 'Go to the service'|t }}{{ icons.external() }}
+</a>
+{% endif %}
+<a class="btn outline" href="{{ services_url }}">{{ 'All services'|t }}</a>
+</div>
+<div class="notice">{{ 'Procedures are completed on the official website of each service. This site is a guide to those websites.'|t }}</div>
+</article>
+</div>
+</section>

@@ -1,6 +1,6 @@
 name: 'MTNIMA site'
 type: module
-description: 'Content model (articles, digital services) and bilingual setup for the MTNIMA homepage.'
+description: 'Content model (section pages, articles, digital services), listings, search and bilingual setup for the MTNIMA site.'
 core_version_requirement: ^11
 package: Custom
 dependencies:
@@ -11,3 +11,6 @@ dependencies:
   - drupal:options
   - drupal:menu_link_content
   - drupal:content_translation
+  - drupal:views
+  - drupal:search
+  - drupal:search_node
