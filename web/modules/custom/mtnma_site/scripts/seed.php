@@ -4,8 +4,8 @@
  * @file
  * Seeds the Arabic/French site content taken from the static replicas.
  *
- * Section page bodies, article texts and categories come from
- * content/reference.json and content/pages/*.html (see
+ * Section page bodies, article texts, summaries, source dates and categories
+ * come from content/reference.json and content/pages/*.html (see
  * scripts/extract_reference.py). They are only written into fields that are
  * still empty, and each item is done once.
  *
@@ -320,6 +320,32 @@ foreach ($reference['articles'] as $slug => $info) {
   $remember("content:article:$slug", (int) $article->id());
 }
 
+// Media Centre card summaries and the date each source was consulted.
+foreach ($reference['articles'] as $slug => $info) {
+  $article = isset($seeded["node:article:$slug"]) ? Node::load($seeded["node:article:$slug"]) : NULL;
+  if (!$article || isset($seeded["content:article-details:$slug"])) {
+    continue;
+  }
+  $changed = FALSE;
+  if ($info['checked'] && $article->get('field_source_checked')->isEmpty()) {
+    $article->set('field_source_checked', $info['checked']);
+    $changed = TRUE;
+  }
+  foreach (['ar', 'fr'] as $langcode) {
+    $body = $article->getTranslation($langcode)->get('body')->first();
+    $summary = $info[$langcode]['summary'];
+    // Replace an empty summary, or the first paragraph used as one above.
+    if ($summary && $body && in_array($body->summary, ['', NULL, $info[$langcode]['paragraphs'][0]], TRUE) && $body->summary !== $summary) {
+      $body->set('summary', $summary);
+      $changed = TRUE;
+    }
+  }
+  if ($changed) {
+    $article->save();
+  }
+  $remember("content:article-details:$slug", (int) $article->id());
+}
+
 foreach (array_keys($services) as $slug) {
   $service = Node::load($seeded["node:service:$slug"] ?? 0);
   $category = $service ? ($reference['services'][$service->getTranslation('ar')->label()] ?? NULL) : NULL;
@@ -329,7 +355,7 @@ foreach (array_keys($services) as $slug) {
 }
 
 // Index all content for the site search now rather than on the next cron
-// runs (automated_cron keeps it current after editor changes).
+// runs (later saves are indexed as they happen, see SearchHooks).
 $search = \Drupal::entityTypeManager()->getStorage('search_page')->load('node_search')->getPlugin();
 $search->markForReindex();
 do {

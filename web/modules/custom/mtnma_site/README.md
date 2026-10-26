@@ -45,12 +45,23 @@ copies them into fields that are still empty.
 | Photos | `mtnma_gallery` | – (articles that have an image) |
 
 Article cards use the *Teaser* view mode, gallery tiles the *Photo* view mode.
+A card shows the body's *Summary* (the reference's card text), or the start of
+the body when it is empty. Article pages link back to the Media Centre and the
+gallery, and end with the source link and its *Source consulted on* date.
 
 The header search box submits to the core content search (`/ar/search/node`,
 `/fr/search/node`), which lists results in the current language only and
 matches Arabic words regardless of short vowels, alef/hamza spelling or an
-attached article ("خدمات" finds "الخدمات"). The index is updated on cron
-(`automated_cron`), or immediately with `ddev drush cron`.
+attached article ("خدمات" finds "الخدمات"). Content is indexed at the end of
+the request that saves it (`SearchHooks`); `ddev drush cron` re-indexes
+anything left over.
+
+## Search engines
+
+Like the reference preview, every response sends
+`X-Robots-Tag: noindex, nofollow` (`NoindexSubscriber`), so the prototype is
+not listed next to the official Ministry website. To turn it off, add
+`$settings['mtnma_site_noindex'] = FALSE;` to `settings.php`.
 
 ## Languages
 

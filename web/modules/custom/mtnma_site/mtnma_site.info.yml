@@ -8,6 +8,7 @@ dependencies:
   - drupal:text
   - drupal:image
   - drupal:link
+  - drupal:datetime
   - drupal:options
   - drupal:menu_link_content
   - drupal:content_translation

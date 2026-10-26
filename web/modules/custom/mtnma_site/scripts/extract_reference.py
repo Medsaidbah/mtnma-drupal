@@ -3,7 +3,7 @@
 Run: python3 -I web/modules/custom/mtnma_site/scripts/extract_reference.py <unzipped mtnma-mauritanie dir>
 
 Writes content/reference.json (page leads, related pages, listings; article
-categories, sources and paragraphs) and content/pages/<slug>.<lang>.html (the
+categories, sources, consultation dates, card summaries and paragraphs) and content/pages/<slug>.<lang>.html (the
 page body below the banner). seed.php imports both. Links between reference
 pages become language-neutral paths ("/minister", "/news/cable") that the
 "Language-aware internal links" filter prefixes at render time; image paths
@@ -26,6 +26,7 @@ LISTING_MARKUP = {
     'gallery': [r'<div class="photo-grid">.*?</figure>\n</div>\n'],
 }
 CATEGORIES = {'أخبار الوزارة': 'news', 'الفعاليات': 'events', 'Actualités du Ministère': 'news', 'Événements': 'events'}
+MONTHS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 
 
 def main_content(path):
@@ -70,13 +71,23 @@ def article(slug, langcode, root):
     date = re.search(r'datetime="([\d-]+)"', meta)
     paragraphs = re.findall(r'<p>(.*?)</p>', main[main.index('article-meta'):main.index('article-actions')], re.S)
     source = re.search(r'<div class="article-actions">\s*<a class="btn" href="([^"]+)"', main)
+    # "· consulté le 22 octobre 2026." after the source link (French pages).
+    checked = re.search(r'consulté le (\d+) (\w+) (\d{4})', main)
     return {
         'title': text(re.search(r'<h1>(.*?)</h1>', main, re.S).group(1)),
         'date': date.group(1) if date else None,
         'category': CATEGORIES[text(re.search(r'<span>(.*?)</span>', meta).group(1))],
         'source': html.unescape(source.group(1)) if source else None,
         'paragraphs': [text(p) for p in paragraphs],
+        'checked': f'{checked[3]}-{MONTHS.index(checked[2]) + 1:02d}-{int(checked[1]):02d}' if checked else None,
     }
+
+
+def card_summaries(langcode, root):
+    """Returns the Media Centre card text of each article, keyed by slug."""
+    media = main_content(root / ('fr/media.html' if langcode == 'fr' else 'media.html'))
+    cards = re.findall(r'<article class="news-card".*?href="(?:\.\./)?article-([\w-]+)\.html".*?<p>(.*?)</p>', media, re.S)
+    return {slug: text(summary) for slug, summary in cards}
 
 
 root = pathlib.Path(sys.argv[1])
@@ -91,9 +102,12 @@ for slug in PAGES:
         entry['related'], entry['listing'] = values.pop('related'), values.pop('listing')
         entry.setdefault('lead', {})[langcode] = values['lead']
     data['pages'][slug] = entry
+summaries = {langcode: card_summaries(langcode, root) for langcode in ('ar', 'fr')}
 for slug in ARTICLES:
     ar, fr = article(slug, 'ar', root), article(slug, 'fr', root)
-    data['articles'][slug] = {'date': ar['date'], 'category': ar['category'], 'ar': ar, 'fr': fr}
+    ar['summary'], fr['summary'] = summaries['ar'].get(slug), summaries['fr'].get(slug)
+    data['articles'][slug] = {'date': ar['date'], 'category': ar['category'], 'checked': fr.pop('checked'), 'ar': ar, 'fr': fr}
+    ar.pop('checked')
 # Service categories, from the filter buttons of the services page.
 services = main_content(root / 'services.html')
 data['services'] = {text(title): category for category, title in re.findall(r'data-category="(\w+)">.*?<h3>(.*?)</h3>', services, re.S)}

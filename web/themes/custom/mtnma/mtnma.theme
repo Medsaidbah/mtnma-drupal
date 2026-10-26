@@ -20,6 +20,16 @@ const MTNMA_PAGES = [
 ];
 
 /**
+ * Order of the mobile menu and the search dialog's page list, as in the
+ * replica; pages missing here follow in menu order.
+ */
+const MTNMA_PAGE_ORDER = [
+  '', '/about', '/minister', '/organization', '/agencies', '/services',
+  '/strategies', '/studies', '/indicators', '/laws', '/media', '/gallery',
+  '/projects', '/innovation', '/tenders', '/contact', '/links',
+];
+
+/**
  * Social networks shown in the hero rail (first three) and the footer.
  */
 const MTNMA_SOCIAL = [
@@ -98,6 +108,9 @@ function mtnma_preprocess_page(array &$variables): void {
       }
     }
   }
+  $prefix = '#^' . preg_quote(base_path() . $langcode, '#') . '(?=/|$)#';
+  $position = fn(array $page) => array_search(rtrim(preg_replace($prefix, '', $page['url']), '/'), MTNMA_PAGE_ORDER, TRUE);
+  uasort($pages, fn(array $a, array $b) => ($position($a) === FALSE ? PHP_INT_MAX : $position($a)) <=> ($position($b) === FALSE ? PHP_INT_MAX : $position($b)));
   $variables['all_pages'] = array_values($pages);
   $variables['search_url'] = Url::fromRoute('search.view_node_search')->toString();
 
@@ -111,6 +124,10 @@ function mtnma_preprocess_page(array &$variables): void {
     if ($node->hasField('field_lead')) {
       $variables['page_banner']['lead'] = $node->get('field_lead')->value;
       $variables['subnav'] = _mtnma_related_pages($node, $langcode, $cache);
+    }
+    elseif ($node->bundle() === 'article') {
+      // News articles link back to the Media Centre and the photo gallery.
+      $variables['subnav'] = _mtnma_page_links(['/media', '/gallery'], $langcode, $cache);
     }
     $cache->addCacheableDependency($node);
   }
@@ -146,6 +163,29 @@ function _mtnma_related_pages(NodeInterface $node, string $langcode, CacheableMe
       'url' => $related->toUrl()->toString(),
       'active' => $related->id() === $node->id(),
     ];
+  }
+  return $links;
+}
+
+/**
+ * Returns links to section pages given by path, such as "/media".
+ *
+ * @return array
+ *   Links {title, url, active} to the pages that exist in $langcode.
+ */
+function _mtnma_page_links(array $paths, string $langcode, CacheableMetadata $cache): array {
+  $links = [];
+  foreach ($paths as $path) {
+    $url = \Drupal::service('path.validator')->getUrlIfValidWithoutAccessCheck($path);
+    $page = $url && $url->isRouted() && $url->getRouteName() === 'entity.node.canonical'
+      ? \Drupal::entityTypeManager()->getStorage('node')->load($url->getRouteParameters()['node'])
+      : NULL;
+    if (!$page || !$page->access('view') || !$page->hasTranslation($langcode)) {
+      continue;
+    }
+    $page = $page->getTranslation($langcode);
+    $cache->addCacheableDependency($page);
+    $links[] = ['title' => $page->label(), 'url' => $page->toUrl()->toString(), 'active' => FALSE];
   }
   return $links;
 }
@@ -244,6 +284,8 @@ function mtnma_preprocess_node(array &$variables): void {
       $variables['media_url'] = Url::fromUserInput('/media')->toString();
       $source = $node->get('field_source_link')->first();
       $variables['source_url'] = $source ? $source->getUrl()->toString() : NULL;
+      $checked = $node->get('field_source_checked')->date;
+      $variables['source_checked'] = $checked ? \Drupal::service('date.formatter')->format($checked->getTimestamp(), 'custom', 'j F Y', NULL, $node->language()->getId()) : NULL;
     }
   }
   elseif ($node->bundle() === 'service' && in_array($view_mode, ['full', 'teaser'], TRUE)) {

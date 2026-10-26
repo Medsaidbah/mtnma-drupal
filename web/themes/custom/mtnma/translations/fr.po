@@ -291,6 +291,9 @@ msgstr "Copier le lien de l’article"
 msgid "Reference source: <a href=\":url\" target=\"_blank\" rel=\"noopener noreferrer\">official Ministry website</a>"
 msgstr "Source : <a href=\":url\" target=\"_blank\" rel=\"noopener noreferrer\">site officiel du Ministère</a>"
 
+msgid "consulted on @date."
+msgstr "consulté le @date."
+
 msgid "Digital service"
 msgstr "Service numérique"
 

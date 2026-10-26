@@ -1,3 +1,30 @@
+# MTNIMA website prototype (Drupal)
+
+Bilingual Arabic/French Drupal 11 version of the redesign proposal for the
+website of the Ministry of Digital Transformation and Administrative
+Modernization (Mauritania). **This is a prototype, not the official site**
+(the official site is https://mtnima.gov.mr/). It has not been deployed or
+security-reviewed.
+
+- Theme: `web/themes/custom/mtnma` (the reference design, assets and script).
+- Module: `web/modules/custom/mtnma_site` (content model, listings, search,
+  language handling, seed content); see its README for details.
+
+## Run it locally
+
+```sh
+ddev start
+ddev launch /ar        # or /fr
+ddev drush uli         # one-time admin login link
+```
+
+The site content and configuration live in the local database, which is not
+in Git. To share a working copy, export the database
+(`ddev export-db --file=mtnma.sql.gz`) and `web/sites/default/files`, and
+share them privately rather than committing them.
+
+---
+
 # Drupal CMS
 
 Drupal CMS is a fast-moving open source product that enables site builders to easily create new Drupal sites and extend them with smart defaults, all using their browser.

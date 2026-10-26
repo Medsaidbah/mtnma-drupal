@@ -185,6 +185,7 @@
   "address": {
    "date": "2026-09-29",
    "category": "news",
+   "checked": "2026-10-20",
    "ar": {
     "title": "الوزارة تستعرض النظام الوطني للعنونة الرقمية",
     "date": "2026-09-29",
@@ -192,7 +193,8 @@
     "source": "https://mtnima.gov.mr/%D8%A7%D9%84%D9%88%D8%B2%D8%A7%D8%B1%D8%A9-%D8%AA%D8%B3%D8%AA%D8%B9%D8%B1%D8%B6-%D8%A7%D9%84%D9%86%D8%B8%D8%A7%D9%85-%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A-%D9%84%D9%84%D8%B9%D9%86%D9%88%D9%86%D8%A9/",
     "paragraphs": [
      "عرض مشروع العنونة الرقمية الوطني في نواكشوط، في إطار تطوير الأدوات الرقمية للإدارة."
-    ]
+    ],
+    "summary": "عرض مشروع العنونة الرقمية الوطني في نواكشوط، في إطار تطوير الأدوات الرقمية للإدارة."
    },
    "fr": {
     "title": "Le Ministère présente le Système national d’adressage numérique",
@@ -201,12 +203,14 @@
     "source": "https://mtnima.gov.mr/fr/le-mtnima-presente-le-systeme-national-dadressage-numerique/",
     "paragraphs": [
      "Présentation à Nouakchott du projet national d’adressage numérique, dans le cadre du développement des outils numériques de l’administration."
-    ]
+    ],
+    "summary": "Présentation à Nouakchott du projet national d’adressage numérique, dans le cadre du développement des outils numériques de l’administration."
    }
   },
   "standards": {
    "date": "2026-09-28",
    "category": "news",
+   "checked": "2026-10-20",
    "ar": {
     "title": "توحيد البنية الرقمية للدولة: من صياغة المعايير إلى تطبيقها",
     "date": "2026-09-28",
@@ -214,7 +218,8 @@
     "source": "https://mtnima.gov.mr/%D8%AA%D9%88%D8%AD%D9%8A%D8%AF-%D8%A7%D9%84%D8%A8%D9%86%D9%8A%D8%A9-%D8%A7%D9%84%D8%B1%D9%82%D9%85%D9%8A%D8%A9-%D9%84%D9%84%D8%AF%D9%88%D9%84%D8%A9-%D9%85%D9%86-%D8%B5%D9%8A%D8%A7%D8%BA%D8%A9-%D8%A7/",
     "paragraphs": [
      "برنامج تكويني للمسؤولين القطاعيين حول تطبيق معايير موحدة للبنية الرقمية للدولة."
-    ]
+    ],
+    "summary": "برنامج تكويني للمسؤولين القطاعيين حول تطبيق معايير موحدة للبنية الرقمية للدولة."
    },
    "fr": {
     "title": "Standardisation de l’architecture numérique de l’État : de la formulation des normes à leur application",
@@ -223,12 +228,14 @@
     "source": "https://mtnima.gov.mr/fr/standardisation-de-larchitecture-numerique-de-letat-de-la-formulation-des-normes-a-leur-application/",
     "paragraphs": [
      "Programme de formation des responsables sectoriels à l’application de normes harmonisées pour l’architecture numérique de l’État."
-    ]
+    ],
+    "summary": "Programme de formation des responsables sectoriels à l’application de normes harmonisées pour l’architecture numérique de l’État."
    }
   },
   "wfp": {
    "date": "2026-09-15",
    "category": "news",
+   "checked": "2026-10-22",
    "ar": {
     "title": "الوزير يبحث مع برنامج الأغذية العالمي آفاق التعاون في التحول الرقمي",
     "date": "2026-09-15",
@@ -237,7 +244,8 @@
     "paragraphs": [
      "بحث معالي وزير التحول الرقمي وعصرنة الإدارة، السيد أحمد سالم ولد بده، في نواكشوط مع السيد كلود كاكولي، ممثل برنامج الأغذية العالمي ومديره القطري في موريتانيا، آفاق تعزيز التعاون بين الوزارة والبرنامج في مجال التحول الرقمي.",
      "تناول اللقاء رقمنة برامج المساعدة وحلول الدفع والتحويلات الرقمية، وتوظيف البيانات والخرائط الرقمية والذكاء الاصطناعي في دعم الأمن الغذائي وأنظمة الإنذار المبكر، مع مراعاة حماية البيانات الشخصية والأمن السيبراني. واتفق الجانبان على تحديد مشاريع ومبادرات تجريبية مشتركة."
-    ]
+    ],
+    "summary": "مباحثات حول رقمنة برامج المساعدة وتوظيف البيانات والذكاء الاصطناعي في دعم الأمن الغذائي."
    },
    "fr": {
     "title": "Le Ministre examine avec le Programme alimentaire mondial (PAM) les perspectives de coopération en matière de transformation numérique",
@@ -247,12 +255,14 @@
     "paragraphs": [
      "Le Ministre de la Transformation Numérique et de la Modernisation de l’Administration, M. Ahmed Salem Ould Bede, s’est entretenu à Nouakchott avec M. Claude Kakule, Représentant et Directeur pays du Programme alimentaire mondial (PAM) en Mauritanie, des perspectives de renforcement de la coopération entre le Ministère et le Programme dans le domaine de la transformation numérique.",
      "La rencontre a porté sur la numérisation des programmes d’assistance, les solutions de paiement et de transferts numériques, ainsi que sur l’utilisation des données, de la cartographie numérique et de l’intelligence artificielle au service de la sécurité alimentaire et des systèmes d’alerte précoce, dans le respect de la protection des données personnelles et de la cybersécurité. Les deux parties sont convenues d’identifier des projets et des initiatives pilotes communs."
-    ]
+    ],
+    "summary": "Entretiens sur la numérisation des programmes d’assistance et l’utilisation des données et de l’intelligence artificielle au service de la sécurité alimentaire."
    }
   },
   "cable": {
    "date": "2026-05-05",
    "category": "events",
+   "checked": "2026-10-22",
    "ar": {
     "title": "إنزال فرع جديد من الكابل البحري ألالينك في نواذيبو",
     "date": "2026-05-05",
@@ -261,7 +271,8 @@
     "paragraphs": [
      "أعلنت الجمهورية الإسلامية الموريتانية وشركة ألالينك عن نجاح إنزال كابل بحري جديد في نواذيبو، يمتد على أكثر من 670 كلم، ويتيح للبلاد ربطاً ثانياً مباشراً وآمناً بمراكز الاتصالات الرقمية الأوروبية والدولية.",
      "المشروع ممول بشكل مشترك من الدولة الموريتانية والاتحاد الأوروبي في إطار «آلية ربط أوروبا»، ويعزز الصمود الشبكي والسيادة الرقمية. وقال معالي الوزير السيد أحمد سالم بده إن هذا الربط ينقل موريتانيا «من موقع المتلقي إلى موقع الفاعل في منظومة الاتصال الدولي»."
-    ]
+    ],
+    "summary": "ربط ثانٍ مباشر بأوروبا عبر أكثر من 670 كلم من الكابل البحري، بتمويل مشترك من الدولة والاتحاد الأوروبي."
    },
    "fr": {
     "title": "Atterrage d’une nouvelle branche du câble sous-marin EllaLink à Nouadhibou",
@@ -271,12 +282,14 @@
     "paragraphs": [
      "La République Islamique de Mauritanie et la société EllaLink ont annoncé le succès de l’atterrage à Nouadhibou d’un nouveau câble sous-marin qui s’étend sur plus de 670 km et offre au pays une deuxième connexion directe et sécurisée vers les hubs numériques européens et internationaux.",
      "Le projet est cofinancé par l’État mauritanien et l’Union européenne dans le cadre du « Mécanisme pour l’interconnexion en Europe », et renforce la résilience des réseaux et la souveraineté numérique. Le Ministre, M. Ahmed Salem Bede, a déclaré que cette connexion fait passer la Mauritanie « du statut de récepteur à celui d’acteur dans l’architecture mondiale des télécommunications »."
-    ]
+    ],
+    "summary": "Une deuxième connexion directe vers l’Europe grâce à plus de 670 km de câble sous-marin, cofinancée par l’État et l’Union européenne."
    }
   },
   "university": {
    "date": null,
    "category": "news",
+   "checked": "2026-10-20",
    "ar": {
     "title": "رقمنة إجراءات تسجيل الطلاب في جامعة نواكشوط",
     "date": null,
@@ -284,7 +297,8 @@
     "source": "https://mtnima.gov.mr/%D8%B1%D9%82%D9%85%D9%86%D8%A9-%D8%B4%D8%A7%D9%85%D9%84%D8%A9-%D9%84%D8%A5%D8%AC%D8%B1%D8%A7%D8%A1%D8%A7%D8%AA-%D8%AA%D8%B3%D8%AC%D9%8A%D9%84-%D8%A7%D9%84%D8%B7%D9%84%D8%A7%D8%A8-%D8%A7%D9%84%D9%85/",
     "paragraphs": [
      "إتاحة خدمة التسجيل الجامعي إلكترونياً على البوابة الوطنية للخدمات العمومية «خدماتي»."
-    ]
+    ],
+    "summary": "إتاحة خدمة التسجيل الجامعي إلكترونياً على البوابة الوطنية للخدمات العمومية «خدماتي»."
    },
    "fr": {
     "title": "Dématérialisation du processus d’inscription des étudiants à l’Université de Nouakchott",
@@ -293,12 +307,14 @@
     "source": "https://mtnima.gov.mr/fr/dematerialisation-totale-du-processus-dinscription-des-etudiants-mauritaniens-a-luniversite-de-nouakchott/",
     "paragraphs": [
      "Mise à disposition du service d’inscription universitaire en ligne sur le portail national des services publics Khidmaty."
-    ]
+    ],
+    "summary": "Mise en ligne du service d’inscription universitaire sur le portail national des services publics « Khidmaty »."
    }
   },
   "traffic": {
    "date": null,
    "category": "news",
+   "checked": "2026-10-20",
    "ar": {
     "title": "ربط النظام الرقمي للمرور ببوابة «خدماتي»",
     "date": null,
@@ -306,7 +322,8 @@
     "source": "https://mtnima.gov.mr/%D8%B1%D8%A8%D8%B7-%D8%A7%D9%84%D9%86%D8%B8%D8%A7%D9%85-%D8%A7%D9%84%D8%B1%D9%82%D9%85%D9%8A-%D9%84%D9%84%D9%85%D8%B1%D9%88%D8%B1-%D8%A8%D8%A8%D9%88%D8%A7%D8%A8%D8%A9-%D8%AE%D9%90%D8%AF%D9%92%D9%85/",
     "paragraphs": [
      "خدمة تتيح إشعار المواطنين بالمخالفات المرورية عبر البوابة الوطنية للخدمات الرقمية."
-    ]
+    ],
+    "summary": "خدمة تتيح إشعار المواطنين بالمخالفات المرورية عبر البوابة الوطنية للخدمات الرقمية."
    },
    "fr": {
     "title": "Raccordement du système numérique du trafic routier au portail « Khidmaty »",
@@ -315,12 +332,14 @@
     "source": "https://mtnima.gov.mr/fr/deploiement-sur-khidmaty-du-sntr-avec-la-notification-instantanee-des-infractions-routieres/",
     "paragraphs": [
      "Un service permettant de notifier aux citoyens leurs infractions routières via le portail national des services numériques."
-    ]
+    ],
+    "summary": "Un service permettant de notifier aux citoyens leurs infractions routières via le portail national des services numériques."
    }
   },
   "rimer": {
    "date": "2024-06-11",
    "category": "events",
+   "checked": "2026-10-20",
    "ar": {
     "title": "تقديم الدراسات الفنية للشبكة الموريتانية للتعليم والبحث (RIMER)",
     "date": "2024-06-11",
@@ -329,7 +348,8 @@
     "paragraphs": [
      "ورشة عمل حول ربط مؤسسات التعليم العالي والبحث بالاتصال عالي السرعة والشبكات الدولية للتعليم والبحث.",
      "يستهدف مشروع الشبكة توفير اتصال سريع لمؤسسات التعليم والبحث، وتيسير التعاون والوصول إلى الموارد والشبكات العلمية الدولية."
-    ]
+    ],
+    "summary": null
    },
    "fr": {
     "title": "Présentation des études techniques du Réseau mauritanien d’enseignement et de recherche (RIMER)",
@@ -339,7 +359,8 @@
     "paragraphs": [
      "Atelier consacré au raccordement des établissements d’enseignement supérieur et de recherche au haut débit et aux réseaux internationaux d’enseignement et de recherche.",
      "Le projet de réseau vise à doter les établissements d’enseignement et de recherche d’une connexion rapide, ainsi qu’à faciliter la coopération et l’accès aux ressources et aux réseaux scientifiques internationaux."
-    ]
+    ],
+    "summary": null
    }
   }
  },

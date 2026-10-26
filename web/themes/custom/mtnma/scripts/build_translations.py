@@ -110,6 +110,7 @@ STRINGS = {
     'Reference source: <a href=":url" target="_blank" rel="noopener noreferrer">official Ministry website</a>': (
         'المصدر المرجعي: <a href=":url" target="_blank" rel="noopener noreferrer">الموقع الرسمي للوزارة</a>',
         'Source\u00a0: <a href=":url" target="_blank" rel="noopener noreferrer">site officiel du Ministère</a>'),
+    'consulted on @date.': ('تم الاطلاع في @date.', 'consulté le @date.'),
     'Digital service': ('خدمة رقمية', 'Service numérique'),
     'Procedures are completed on the official website of each service. This site is a guide to those websites.': (
         'تُنجز المعاملات على المواقع الرسمية لكل خدمة. هذا الموقع دليل للوصول إلى تلك المواقع.',

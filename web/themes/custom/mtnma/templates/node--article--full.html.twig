@@ -24,7 +24,7 @@
 </div>
 <p id="copy-status" class="form-status" role="status"></p>
 {% if source_url %}
-<p class="source-note">{{ 'Reference source: <a href=":url" target="_blank" rel="noopener noreferrer">official Ministry website</a>'|t({':url': source_url}) }}</p>
+<p class="source-note">{{ 'Reference source: <a href=":url" target="_blank" rel="noopener noreferrer">official Ministry website</a>'|t({':url': source_url}) }}{% if source_checked %} · {{ 'consulted on @date.'|t({'@date': source_checked}) }}{% endif %}</p>
 {% endif %}
 </article>
 </div>

@@ -291,6 +291,9 @@ msgstr "نسخ رابط الخبر"
 msgid "Reference source: <a href=\":url\" target=\"_blank\" rel=\"noopener noreferrer\">official Ministry website</a>"
 msgstr "المصدر المرجعي: <a href=\":url\" target=\"_blank\" rel=\"noopener noreferrer\">الموقع الرسمي للوزارة</a>"
 
+msgid "consulted on @date."
+msgstr "تم الاطلاع في @date."
+
 msgid "Digital service"
 msgstr "خدمة رقمية"
 

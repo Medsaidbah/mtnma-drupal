@@ -95,6 +95,7 @@ function mtnma_site_ensure_content_model(): void {
     ['service', 'field_service_category', 'list_string', 'Audience', FALSE, [], 'Filter of the services listing this service appears under.'],
     ['article', 'field_category', 'list_string', 'Category', FALSE, [], 'Filter of the Media Centre listing this article appears under.'],
     ['article', 'field_source_link', 'link', 'Original article', TRUE, ['link_type' => 16, 'title' => 0], 'The article on the official Ministry website.'],
+    ['article', 'field_source_checked', 'datetime', 'Source consulted on', FALSE, [], 'Date the original article was last checked; shown after the source link.'],
     ['page', 'field_lead', 'string', 'Banner lead', TRUE, [], 'Short sentence shown under the title in the page banner.'],
     ['page', 'field_related', 'entity_reference', 'Related pages', FALSE, ['handler' => 'default:node', 'handler_settings' => ['target_bundles' => ['page' => 'page']]], 'Pages listed in the bar under the banner, in order. Include this page to show it as the current one.'],
     ['page', 'field_listing', 'list_string', 'Listing', FALSE, [], 'Drupal listing shown above the body text.'],
@@ -123,6 +124,7 @@ function mtnma_site_ensure_content_model(): void {
       'gallery' => 'Photo gallery',
     ]],
     'field_related' => ['target_type' => 'node'],
+    'field_source_checked' => ['datetime_type' => 'date'],
   ];
   $cardinality = ['field_related' => -1];
   foreach ($fields as $definition) {
@@ -154,7 +156,7 @@ function mtnma_site_ensure_content_model(): void {
   // leaving them out of the default display keeps them out of search results.
   $form = \Drupal::service('entity_display.repository');
   foreach ([
-    'article' => ['body', 'field_image', 'field_hero_image', 'field_hero_title', 'field_image_position', 'field_archive', '|', 'field_category', 'field_source_link'],
+    'article' => ['body', 'field_image', 'field_hero_image', 'field_hero_title', 'field_image_position', 'field_archive', '|', 'field_category', 'field_source_link', 'field_source_checked'],
     'service' => ['field_service_description', 'field_service_link', 'field_service_icon', '|', 'field_service_category'],
     'page' => ['field_lead', 'body', '|', 'field_related', 'field_listing'],
   ] as $bundle => $names) {
@@ -215,4 +217,17 @@ function mtnma_site_update_11001(): string {
   \Drupal::service('module_installer')->install(['search_node', 'automated_cron']);
   mtnma_site_ensure_content_model();
   return 'Run scripts/seed.php to fill the section pages and index the content.';
+}
+
+/**
+ * Installs the Claro admin theme and adds the source date field.
+ */
+function mtnma_site_update_11002(): string {
+  // system.theme:admin already names Claro, but it was never installed, so
+  // admin pages fell back to the front-end theme.
+  if (!\Drupal::service('theme_handler')->themeExists('claro')) {
+    \Drupal::service('theme_installer')->install(['claro']);
+  }
+  mtnma_site_ensure_content_model();
+  return 'Run scripts/seed.php to add article summaries and source dates from the reference.';
 }
