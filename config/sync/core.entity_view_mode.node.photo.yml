@@ -1,0 +1,11 @@
+uuid: a25727ef-10a1-43b7-8fab-54255d34aeb3
+langcode: ar
+status: true
+dependencies:
+  module:
+    - node
+id: node.photo
+label: Photo
+description: null
+targetEntityType: node
+cache: true

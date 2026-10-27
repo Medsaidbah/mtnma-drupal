@@ -1,0 +1,13 @@
+uuid: 17d4066c-4314-4284-a1b4-a01e8b739d51
+langcode: ar
+status: true
+dependencies:
+  module:
+    - taxonomy
+_core:
+  default_config_hash: DoVt_VGgVLcDD4XmVbSFzr0K17SJy9imFiYusKkJBgY
+id: taxonomy_term_publish_action
+label: 'نشر مصطلح التصنيف'
+type: taxonomy_term
+plugin: 'entity:publish_action:taxonomy_term'
+configuration: {  }

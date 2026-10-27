@@ -1,0 +1,13 @@
+uuid: 24b70408-def1-4338-a13d-c5ea4748f5b6
+langcode: ar
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: sOb26JSy3fGpWkvR0WYN6_hMqj_6d1rvbvrkzp1yya0
+id: node_make_sticky_action
+label: 'تثبيت المحتوى'
+type: node
+plugin: node_make_sticky_action
+configuration: {  }

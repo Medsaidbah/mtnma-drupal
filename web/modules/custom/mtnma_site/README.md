@@ -71,8 +71,12 @@ permanently to the same page in French (`EnglishFrontendSubscriber`).
 
 ## Commands
 
+A new site is built from `config/sync` and this module's seed script by
+`scripts/setup-site.sh` at the project root (see HANDOFF.md). On an existing
+site:
+
 ```sh
-ddev drush pm:enable --yes mtnma_site   # or, on an existing site: ddev drush updatedb --yes
+ddev drush updatedb --yes
 ddev drush php:script web/modules/custom/mtnma_site/scripts/seed.php
 
 # After changing the reference site (unzipped to a directory):

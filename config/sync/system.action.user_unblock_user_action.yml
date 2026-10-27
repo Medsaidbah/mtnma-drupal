@@ -1,0 +1,13 @@
+uuid: ee0c6812-d63e-4556-bc2c-3ff7249c2141
+langcode: ar
+status: true
+dependencies:
+  module:
+    - user
+_core:
+  default_config_hash: SPsUXsR3Rc8d1y3gewzaAKWa1ncea_ywXX3f7LTn7k0
+id: user_unblock_user_action
+label: 'إلغاء حظر المستخدم/المستخدمين المحدَّدين'
+type: user
+plugin: user_unblock_user_action
+configuration: {  }

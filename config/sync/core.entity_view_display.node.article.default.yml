@@ -1,0 +1,91 @@
+uuid: 1dc983d2-bd3d-4cf3-bd98-d8342d801b15
+langcode: ar
+status: true
+dependencies:
+  config:
+    - field.field.node.article.body
+    - field.field.node.article.field_archive
+    - field.field.node.article.field_category
+    - field.field.node.article.field_hero_image
+    - field.field.node.article.field_hero_title
+    - field.field.node.article.field_image
+    - field.field.node.article.field_image_position
+    - field.field.node.article.field_source_checked
+    - field.field.node.article.field_source_link
+    - node.type.article
+  module:
+    - image
+    - text
+    - user
+id: node.article.default
+targetEntityType: node
+bundle: article
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_archive:
+    type: boolean
+    label: hidden
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_hero_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_hero_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_image_position:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_category: true
+  field_source_checked: true
+  field_source_link: true
+  langcode: true

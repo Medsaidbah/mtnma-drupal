@@ -1,0 +1,10 @@
+uuid: 11b12b6a-3e2e-457e-ade8-f0bdfc006cb2
+langcode: ar
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: SAeixlV7Djy_Ggv_1P95TiqD4KUihA5icvU521tA84Y
+id: short
+label: 'التاريخ القصير الافتراضي'
+locked: false
+pattern: 'j M Y - H:i'

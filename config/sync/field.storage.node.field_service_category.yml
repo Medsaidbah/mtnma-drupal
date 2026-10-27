@@ -1,0 +1,30 @@
+uuid: 04bde862-ec93-4cf6-a5d3-4e23528c28a6
+langcode: ar
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_service_category
+field_name: field_service_category
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: citizens
+      label: Citizens
+    -
+      value: business
+      label: Businesses
+    -
+      value: education
+      label: 'Education and family'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

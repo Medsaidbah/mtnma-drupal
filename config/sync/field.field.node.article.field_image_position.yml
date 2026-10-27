@@ -1,0 +1,19 @@
+uuid: b3d2c6d0-54ac-41e3-bece-66fa95727d21
+langcode: ar
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image_position
+    - node.type.article
+id: node.article.field_image_position
+field_name: field_image_position
+entity_type: node
+bundle: article
+label: 'Image focal position'
+description: 'CSS object-position used to crop the image, for example "50% 0%".'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

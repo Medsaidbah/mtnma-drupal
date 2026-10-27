@@ -1,0 +1,21 @@
+uuid: 40c46190-dda0-41f2-b033-afd15c971a89
+langcode: ar
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_source_checked
+    - node.type.article
+  module:
+    - datetime
+id: node.article.field_source_checked
+field_name: field_source_checked
+entity_type: node
+bundle: article
+label: 'Source consulted on'
+description: 'Date the original article was last checked; shown after the source link.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -1,0 +1,13 @@
+uuid: f0097c79-6293-4055-996e-e086d21e26d9
+langcode: ar
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: C7X8h9FWlwkQ9y5mnU2JzgaZICAdc6HFbPVbhvjlAYE
+id: node_unpublish_action
+label: 'إلغاء نشر المحتوى'
+type: node
+plugin: 'entity:unpublish_action:node'
+configuration: {  }

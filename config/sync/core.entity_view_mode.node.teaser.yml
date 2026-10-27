@@ -1,0 +1,13 @@
+uuid: ae469161-5864-401f-89bf-5f8fc25fc7ee
+langcode: ar
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: KgGJDZFpMaz_8bTv6fN1bXS3Qi5LWmRJI9R53kEGsNQ
+id: node.teaser
+label: موجز
+description: ''
+targetEntityType: node
+cache: true

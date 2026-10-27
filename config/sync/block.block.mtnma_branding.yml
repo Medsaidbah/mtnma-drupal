@@ -1,0 +1,25 @@
+uuid: 2793297e-b636-46ee-bd74-e2531c56a4b1
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - mtnma
+_core:
+  default_config_hash: sG8t_FghbUscJ-GrnQ8zs_vx5YM4bJCfntrK-J5HcAY
+id: mtnma_branding
+theme: mtnma
+region: highlighted
+weight: 0
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'العلامة التجارية للموقع'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: true
+visibility: {  }

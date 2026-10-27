@@ -1,0 +1,27 @@
+uuid: 6f72c883-a3a2-4e95-a651-c2111f7696bc
+langcode: ar
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_category
+field_name: field_category
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: news
+      label: 'Ministry news'
+    -
+      value: events
+      label: Events
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

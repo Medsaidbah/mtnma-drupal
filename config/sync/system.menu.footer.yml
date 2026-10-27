@@ -1,0 +1,10 @@
+uuid: 797654a8-54dc-4534-aaf9-71bfdfc1d079
+langcode: ar
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 7yrlW5z9zdg2eBucB2GPqXKSMQfH9lSRSO4DbWF7AFc
+id: footer
+label: التذييل
+description: 'روابط معلومات الموقع'
+locked: true

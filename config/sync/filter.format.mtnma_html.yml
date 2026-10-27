@@ -1,0 +1,16 @@
+uuid: 0a098d33-8206-49a6-a377-2e0cf3c82dd5
+langcode: ar
+status: true
+dependencies:
+  module:
+    - mtnma_site
+name: 'Page layout HTML (administrators)'
+format: mtnma_html
+weight: 5
+filters:
+  mtnma_language_links:
+    id: mtnma_language_links
+    provider: mtnma_site
+    status: true
+    weight: 0
+    settings: {  }

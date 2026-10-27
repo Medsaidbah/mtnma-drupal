@@ -1,0 +1,14 @@
+uuid: db14d922-64a3-4198-8210-1f4f79875688
+langcode: ar
+status: true
+dependencies:
+  config:
+    - user.role.administrator
+  module:
+    - user
+id: user_add_role_action.administrator
+label: 'إضافة دور Administrator إلى المستخدم (المستخدمين) المختارين'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: administrator

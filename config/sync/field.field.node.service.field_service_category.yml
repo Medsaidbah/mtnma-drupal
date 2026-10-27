@@ -1,0 +1,21 @@
+uuid: 77fe5fba-e9f2-4052-b44b-e1572b304221
+langcode: ar
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_service_category
+    - node.type.service
+  module:
+    - options
+id: node.service.field_service_category
+field_name: field_service_category
+entity_type: node
+bundle: service
+label: Audience
+description: 'Filter of the services listing this service appears under.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

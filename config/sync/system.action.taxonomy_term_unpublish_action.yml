@@ -1,0 +1,13 @@
+uuid: 2ab386d8-e5e9-4b86-b1a6-4f094fee0f2d
+langcode: ar
+status: true
+dependencies:
+  module:
+    - taxonomy
+_core:
+  default_config_hash: z2sNRM3ECa7FPCGnSNje_9SmZJQgwhD_6fG_L4Mr8zI
+id: taxonomy_term_unpublish_action
+label: 'إلغاء نشر مصطلح التصنيف'
+type: taxonomy_term
+plugin: 'entity:unpublish_action:taxonomy_term'
+configuration: {  }

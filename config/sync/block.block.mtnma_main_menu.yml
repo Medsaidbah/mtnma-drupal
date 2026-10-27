@@ -1,0 +1,25 @@
+uuid: b075fd1e-6fd6-49b5-9cfd-68dc86df9185
+langcode: ar
+status: false
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - mtnma
+id: mtnma_main_menu
+theme: mtnma
+region: highlighted
+weight: 0
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

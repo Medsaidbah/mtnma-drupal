@@ -1,0 +1,11 @@
+uuid: 35989919-47e9-4bf5-9548-a7f6c3335e64
+langcode: ar
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: eNX6lLCKDaY83nCMh20My---y03KbiFlv802DKCCpvg
+id: und
+label: 'غير محدد'
+direction: ltr
+weight: 2
+locked: true

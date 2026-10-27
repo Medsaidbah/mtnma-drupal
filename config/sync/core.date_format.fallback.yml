@@ -1,0 +1,10 @@
+uuid: cbc067e9-11d4-45e0-ac94-dd1ce7bea21a
+langcode: ar
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: iIBLu1j9n6Oo5PW-wpu5gdyNs9Kvv4LMRqtQUdJjRz8
+id: fallback
+label: 'تنسيق التاريخ الاحتياطي'
+locked: true
+pattern: 'D, j M Y - H:i'

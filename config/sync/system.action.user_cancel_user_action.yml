@@ -1,0 +1,13 @@
+uuid: 75479f2a-65dc-4355-ade1-1717e9c76939
+langcode: ar
+status: true
+dependencies:
+  module:
+    - user
+_core:
+  default_config_hash: nvrL9bFilzBvm2bjO9rQnFDpBA7dBBUjShSSt6NS-DU
+id: user_cancel_user_action
+label: 'إلغاء حساب المستخدم/المستخدمين المحدَّدين'
+type: user
+plugin: user_cancel_user_action
+configuration: {  }

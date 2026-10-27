@@ -1,0 +1,16 @@
+uuid: 0bb02130-0bdd-4787-a3fc-25f74a12e560
+langcode: ar
+status: true
+dependencies:
+  module:
+    - media
+  enforced:
+    module:
+      - media_library
+_core:
+  default_config_hash: 04_dAqpWYP1WmsXZ7IXJ7-yarCvNddD10EUkBDtIFy4
+id: media.media_library
+label: 'مكتبة الوسائط'
+description: ''
+targetEntityType: media
+cache: true

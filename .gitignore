@@ -48,3 +48,9 @@ $RECYCLE.BIN/
 /index_fr.html
 /ref_test*.html
 /legacy_static/
+
+# Database dumps and snapshots: share them privately, never commit them.
+*.sql
+*.sql.gz
+*.mysql
+*.zst

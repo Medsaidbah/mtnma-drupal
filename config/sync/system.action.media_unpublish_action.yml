@@ -1,0 +1,13 @@
+uuid: f1916a62-433b-4453-ab98-45647feef5e8
+langcode: ar
+status: true
+dependencies:
+  module:
+    - media
+_core:
+  default_config_hash: CsK6TseQ2DatEbZgbd30swOlZ28_HHwAESU2LvEnWq0
+id: media_unpublish_action
+label: 'عدم نشر الوسائط'
+type: media
+plugin: 'entity:unpublish_action:media'
+configuration: {  }

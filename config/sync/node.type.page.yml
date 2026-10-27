@@ -1,0 +1,11 @@
+uuid: e17acd24-01e4-4ded-a242-79d8c292da3f
+langcode: ar
+status: true
+dependencies: {  }
+name: الصفحة
+type: page
+description: null
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

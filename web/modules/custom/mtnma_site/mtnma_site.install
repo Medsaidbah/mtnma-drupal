@@ -21,6 +21,11 @@ use Drupal\search\Entity\SearchPage;
  * "service" content type, all translatable into the site languages.
  */
 function mtnma_site_install(): void {
+  // When the site is installed from config/sync, the content model arrives
+  // with the rest of the configuration.
+  if (\Drupal::isConfigSyncing()) {
+    return;
+  }
   mtnma_site_ensure_content_model();
 }
 

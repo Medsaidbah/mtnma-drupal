@@ -1,0 +1,18 @@
+uuid: b757dd77-9a1c-4b9a-9ec8-50ebbe211aff
+langcode: ar
+status: true
+dependencies:
+  module:
+    - media
+    - search
+    - system
+_core:
+  default_config_hash: j5zLMOdJBqC0bMvSdth5UebkprJB8g_2FXHqhfpJzow
+id: anonymous
+label: 'مستخدم مجهول'
+weight: 0
+is_admin: false
+permissions:
+  - 'access content'
+  - 'search content'
+  - 'view media'

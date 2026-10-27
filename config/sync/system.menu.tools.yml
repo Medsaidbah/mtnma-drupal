@@ -1,0 +1,10 @@
+uuid: 8819a221-9c8d-4599-9e04-149d9cb8dbb2
+langcode: ar
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: BCM-vV1zzRaLHN18dqAR_CuGOj8AFJvTx7BKl_8Gcxc
+id: tools
+label: الأدوات
+description: 'روابط أداة المستخدم، غالبًا ما تضاف بواسطة وحدات'
+locked: true

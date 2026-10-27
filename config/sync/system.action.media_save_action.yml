@@ -1,0 +1,13 @@
+uuid: e1cb35ca-8a50-4995-91e0-2e177a0537d7
+langcode: ar
+status: true
+dependencies:
+  module:
+    - media
+_core:
+  default_config_hash: VVyUA6PIaVeGtcIbgEWqJ6SYDiJdReBeojFswURFpKs
+id: media_save_action
+label: 'حفظ الوسائط'
+type: media
+plugin: 'entity:save_action:media'
+configuration: {  }

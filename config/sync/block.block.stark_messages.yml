@@ -1,0 +1,22 @@
+uuid: 98d91ce2-e523-4a1f-93dd-2aaf7c3c3757
+langcode: ar
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - stark
+_core:
+  default_config_hash: aeqlWs7HwctZeZC7ADcbxfqehJzBRfZKmuZz3DsH3_4
+id: stark_messages
+theme: stark
+region: highlighted
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'رسائل الحالة'
+  label_display: '0'
+  provider: system
+visibility: {  }

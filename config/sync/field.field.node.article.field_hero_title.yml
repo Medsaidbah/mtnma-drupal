@@ -1,0 +1,19 @@
+uuid: 5a7b8ce2-8f3f-4314-b120-da11a9c60a86
+langcode: ar
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hero_title
+    - node.type.article
+id: node.article.field_hero_title
+field_name: field_hero_title
+entity_type: node
+bundle: article
+label: 'Carousel title'
+description: 'Optional shorter headline for the homepage carousel; the title is used when empty.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

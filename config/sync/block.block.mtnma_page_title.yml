@@ -1,0 +1,20 @@
+uuid: 79fe3a24-951f-46ff-90d5-e565ce9b4c8d
+langcode: en
+status: true
+dependencies:
+  theme:
+    - mtnma
+_core:
+  default_config_hash: Oh72CHUkp6cj6dbrXMK2hzCsM05w9cHVoD22rMLQUfk
+id: mtnma_page_title
+theme: mtnma
+region: content
+weight: -30
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'عنوان الصفحة'
+  label_display: '0'
+  provider: core
+visibility: {  }

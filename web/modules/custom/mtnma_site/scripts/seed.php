@@ -11,6 +11,10 @@
  *
  * Usage: ddev drush php:script web/modules/custom/mtnma_site/scripts/seed.php
  *
+ * On a new site installed from config/sync (scripts/setup-site.sh), this
+ * creates all content: the front page, the 16 section pages, news, digital
+ * services, menu links and the managed image files (copied from the theme).
+ *
  * Safe to re-run: every item is keyed in state (mtnma_site.seed) and skipped
  * once created, so editor changes made in the UI are never overwritten.
  */
@@ -76,11 +80,29 @@ $node = function (string $key, array $shared, array $ar, array $fr) use (&$seede
   return $node;
 };
 
-// Front page node: add the French translation.
-$front = Node::load(2);
-if ($front && !$front->hasTranslation('fr')) {
+// Front page node, rendered by node--front.html.twig. Adopt the page the site
+// already uses as its front page. A new site installed from config/sync has
+// "/node/2" configured but no nodes yet: the front page is created with that
+// ID, so the configuration stays as exported (and the other nodes get the
+// same IDs as on the original site).
+$site = \Drupal::configFactory()->getEditable('system.site');
+$front = isset($seeded['node:front']) ? Node::load($seeded['node:front']) : NULL;
+$front_id = preg_match('#^/node/(\d+)$#', (string) $site->get('page.front'), $match) ? (int) $match[1] : NULL;
+if (!$front && $front_id) {
+  $front = Node::load($front_id);
+}
+if (!$front) {
+  $values = ['type' => 'page', 'langcode' => 'ar', 'title' => 'الرئيسية', 'uid' => 1, 'status' => 1, 'promote' => 0];
+  $front = Node::create($values + ($front_id ? ['nid' => $front_id] : []));
+  $front->enforceIsNew()->save();
+}
+if (!$front->hasTranslation('fr')) {
   $front->addTranslation('fr', ['title' => 'Accueil', 'status' => 1])->save();
 }
+if ($site->get('page.front') !== '/node/' . $front->id()) {
+  $site->set('page.front', '/node/' . $front->id())->save();
+}
+$remember('node:front', (int) $front->id());
 
 // Section pages that the menus link to; their content is added below.
 $pages = [

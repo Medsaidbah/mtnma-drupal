@@ -1,0 +1,13 @@
+uuid: 9941553c-fe7b-4f37-87a4-93f854b94219
+langcode: ar
+status: false
+dependencies:
+  module:
+    - media
+_core:
+  default_config_hash: dTfAUHooYV0uOVPO3saGpgv-c5PppJXDwxvwRTJOycM
+id: media.full
+label: 'المحتوى الكامل'
+description: ''
+targetEntityType: media
+cache: true

@@ -1,0 +1,13 @@
+uuid: 221225ce-60e1-4123-814e-b1508b7f0a28
+langcode: ar
+status: true
+dependencies:
+  module:
+    - user
+_core:
+  default_config_hash: 1TFiplNN7Wmj_DtVLLLP-NLPYpZJdAswKY-vTrYgFyo
+id: user.register
+label: التسجيل
+description: null
+targetEntityType: user
+cache: true

@@ -1,0 +1,20 @@
+uuid: 9087846e-7bf4-4c78-898f-61ebe4f6db81
+langcode: en
+status: true
+dependencies:
+  theme:
+    - mtnma
+_core:
+  default_config_hash: ABoKnlk20KHqZRw_2Qr4EvaFvH4lnQ2nuhunHeE1JIU
+id: mtnma_local_actions
+theme: mtnma
+region: content
+weight: -10
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'الإجراءات الإدارية الرئيسية'
+  label_display: '0'
+  provider: core
+visibility: {  }

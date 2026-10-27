@@ -1,0 +1,21 @@
+uuid: 11f3a09f-e918-4675-89fa-2b0f2eb1eb44
+langcode: ar
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_archive
+    - node.type.article
+id: node.article.field_archive
+field_name: field_archive
+entity_type: node
+bundle: article
+label: 'From the archive'
+description: 'Show "From the Ministry archive" instead of the publication date.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: في
+  off_label: إيقاف
+field_type: boolean

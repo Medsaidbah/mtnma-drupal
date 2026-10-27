@@ -1,0 +1,39 @@
+uuid: 7cd3aa2d-e88e-45ee-8d72-c1fa2b52a849
+langcode: ar
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_service_icon
+field_name: field_service_icon
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: document
+      label: Document
+    -
+      value: briefcase
+      label: Briefcase
+    -
+      value: clipboard
+      label: Clipboard
+    -
+      value: person
+      label: Person
+    -
+      value: building
+      label: Building
+    -
+      value: globe
+      label: Globe
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

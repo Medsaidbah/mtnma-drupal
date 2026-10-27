@@ -1,0 +1,15 @@
+uuid: b0035fd0-b7a8-4adb-8800-7914ae87b008
+langcode: ar
+status: true
+dependencies:
+  module:
+    - search_node
+_core:
+  default_config_hash: br_PqvONqWqTzpV2ajwoa9w-k3t7j9LqJQTjC0zmT88
+id: node_search
+label: المحتوى
+path: node
+weight: -10
+plugin: node_search
+configuration:
+  rankings: {  }

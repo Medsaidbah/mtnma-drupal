@@ -1,0 +1,13 @@
+uuid: a9064fac-19d8-486b-ad8d-d4c1eeaf4cf7
+langcode: ar
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: 2B9uF8NL5gutNKSdPRAhhAsDWFZZG1PJOBmx0aBGd_0
+id: node_publish_action
+label: 'نشر المحتوى'
+type: node
+plugin: 'entity:publish_action:node'
+configuration: {  }

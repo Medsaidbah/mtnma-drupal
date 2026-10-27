@@ -1,0 +1,20 @@
+uuid: f9e488ab-6766-4b14-b247-2e997ad70f30
+langcode: ar
+status: true
+dependencies:
+  theme:
+    - stark
+_core:
+  default_config_hash: ABoKnlk20KHqZRw_2Qr4EvaFvH4lnQ2nuhunHeE1JIU
+id: stark_local_actions
+theme: stark
+region: content
+weight: -10
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'الإجراءات الإدارية الرئيسية'
+  label_display: '0'
+  provider: core
+visibility: {  }

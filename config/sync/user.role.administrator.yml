@@ -1,0 +1,9 @@
+uuid: 4dcd971e-4510-4e27-b176-378795d31f51
+langcode: ar
+status: true
+dependencies: {  }
+id: administrator
+label: 'مدير الموقع'
+weight: 2
+is_admin: true
+permissions: {  }

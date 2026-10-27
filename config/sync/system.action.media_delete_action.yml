@@ -1,0 +1,13 @@
+uuid: 2d9c2859-2eb6-4a1b-887e-a95db6031039
+langcode: ar
+status: true
+dependencies:
+  module:
+    - media
+_core:
+  default_config_hash: FrZy1tmuXJcOxhXlBoI1Hsnen5TT-9OCC1iolWH84go
+id: media_delete_action
+label: 'حذف الوسائط'
+type: media
+plugin: 'entity:delete_action:media'
+configuration: {  }

@@ -1,0 +1,11 @@
+uuid: 748acb56-1c3a-4f87-8609-d8b4049e61aa
+langcode: ar
+status: true
+dependencies: {  }
+name: 'Digital service'
+type: service
+description: 'A government platform listed in the homepage digital services grid.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

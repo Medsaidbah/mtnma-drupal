@@ -1,0 +1,13 @@
+uuid: 056aefb5-47cc-4b93-9dd1-a553e15bd5fc
+langcode: ar
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: t43OqwzP3CTbcAagSsWKNy6KwMm_zShXo3c4-So6rQg
+id: node_delete_action
+label: 'حذف المحتوى'
+type: node
+plugin: 'entity:delete_action:node'
+configuration: {  }

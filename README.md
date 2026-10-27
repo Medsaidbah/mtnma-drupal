@@ -9,19 +9,20 @@ security-reviewed.
 - Theme: `web/themes/custom/mtnma` (the reference design, assets and script).
 - Module: `web/modules/custom/mtnma_site` (content model, listings, search,
   language handling, seed content); see its README for details.
+- Configuration: `config/sync` (exported Drupal configuration).
 
 ## Run it locally
 
 ```sh
-ddev start
-ddev launch /ar        # or /fr
-ddev drush uli         # one-time admin login link
+scripts/setup-site.sh       # builds the site from this repository (no database dump needed)
+ddev launch /ar             # or /fr
+ddev drush user:login       # one-time admin login link
 ```
 
-The site content and configuration live in the local database, which is not
-in Git. To share a working copy, export the database
-(`ddev export-db --file=mtnma.sql.gz`) and `web/sites/default/files`, and
-share them privately rather than committing them.
+**[HANDOFF.md](HANDOFF.md)** explains the setup, accounts, what is and isn't
+in Git, the comparison with the reference, known limitations, browser checks,
+and the deployment and security blockers. Never commit database dumps or
+`settings.php`.
 
 ---
 

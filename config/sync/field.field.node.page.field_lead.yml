@@ -1,0 +1,19 @@
+uuid: dd6d0065-a662-4304-afd5-a7ffa1fe238c
+langcode: ar
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_lead
+    - node.type.page
+id: node.page.field_lead
+field_name: field_lead
+entity_type: node
+bundle: page
+label: 'Banner lead'
+description: 'Short sentence shown under the title in the page banner.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

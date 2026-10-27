@@ -1,0 +1,10 @@
+uuid: 2e9bb246-0582-40bd-b871-a61eb2c1ba3d
+langcode: ar
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: q7pDV2d9qFh1IVqvymOxUUYGSziZDeg961wURC0cSLs
+id: medium
+label: 'التاريخ المتوسط الافتراضي'
+locked: false
+pattern: 'D, j M Y - H:i'

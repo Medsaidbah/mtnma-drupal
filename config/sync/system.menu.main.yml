@@ -1,0 +1,10 @@
+uuid: 0382e7b9-6697-424c-9205-6f3393623728
+langcode: ar
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: Q2Ra3jfoIVk0f3SjxJX61byRQFVBAbpzYDQOiY-kno8
+id: main
+label: 'التنقل الرئيسي'
+description: 'روابط أقسام الموقع'
+locked: true

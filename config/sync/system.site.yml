@@ -1,0 +1,15 @@
+_core:
+  default_config_hash: HlN7eAN2N4JIHsYv56V4E7sqC9bS609KwvGFjyD_mgk
+langcode: ar
+uuid: 149d5ca4-c9f0-47cc-bbec-fe6448b9af6a
+name: 'وزارة التحول الرقمي وعصرنة الإدارة'
+mail: admin@example.com
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /node/2
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: ar
+mail_notification: null

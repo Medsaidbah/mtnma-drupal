@@ -1,0 +1,13 @@
+uuid: 6571b261-8fd1-46e8-a8a3-077e99c9247e
+langcode: ar
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: lDM9mvIGAu8Sw8rt-uCO4Sr7yX5VPrDPxYcawkbKd6k
+id: node_make_unsticky_action
+label: 'إلغاء جعل المحتوى مثبت'
+type: node
+plugin: node_make_unsticky_action
+configuration: {  }

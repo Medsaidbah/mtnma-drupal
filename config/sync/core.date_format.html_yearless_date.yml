@@ -1,0 +1,10 @@
+uuid: 5c889ce4-1811-4ceb-ab5c-3e593bc3d5aa
+langcode: ar
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 5VpawMrKPEPCkoO4YpPa0TDFO2dgiIHfTziJtwlmUxc
+id: html_yearless_date
+label: 'HTML سنة بلا تاريخ'
+locked: true
+pattern: m-d

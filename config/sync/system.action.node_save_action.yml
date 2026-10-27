@@ -1,0 +1,13 @@
+uuid: 02a8cab1-1123-40c0-a226-ac0430bb6627
+langcode: ar
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: LhdsoZPL_pFas2fjaAWue4zvrQ_tEVofLYtcNec-JGM
+id: node_save_action
+label: 'حفظ المحتوى'
+type: node
+plugin: 'entity:save_action:node'
+configuration: {  }

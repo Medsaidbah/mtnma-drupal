@@ -1,0 +1,22 @@
+uuid: cb4ccee1-258c-47b0-a308-2cff3550f1b3
+langcode: en
+status: true
+dependencies:
+  theme:
+    - mtnma
+_core:
+  default_config_hash: T0wbI6qVdThbbIqXDZFg_1VZ3_ittXBdEoUH7d7ux_E
+id: mtnma_local_tasks
+theme: mtnma
+region: content
+weight: -20
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'علامات التبويب'
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: true
+visibility: {  }

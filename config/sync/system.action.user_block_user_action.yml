@@ -1,0 +1,13 @@
+uuid: a2d854fa-b751-482f-a8d7-ae268b6b94b2
+langcode: ar
+status: true
+dependencies:
+  module:
+    - user
+_core:
+  default_config_hash: DyypzTfThX10FFQw-399qPfEbLLyrhXgQrKPVsmAoJ4
+id: user_block_user_action
+label: 'حظر المستخدم/المستخدمين المحدَّدين'
+type: user
+plugin: user_block_user_action
+configuration: {  }
