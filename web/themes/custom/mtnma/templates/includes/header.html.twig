@@ -5,7 +5,6 @@
  *
  * Variables (mtnma_preprocess_page()):
  * - images: Base URL of the theme images directory.
- * - text_wordmarks: TRUE to render the wordmarks as text (non-Arabic pages).
  * - language_switch: {url, langcode, dir, label, short} for the other language.
  * - main_nav: Main menu items {title, url, active, children}.
  * - all_pages: Flat list of every site page, for the mobile menu.
@@ -15,12 +14,7 @@
 <div id="header">
 <header>
 <div class="wrap masthead">
-<a class="identity" href="{{ path('<front>') }}" aria-label="{{ 'Ministry of Digital Transformation — Home'|t }}"><img class="national-seal" src="{{ images }}/seal.png" alt="{{ 'Emblem of the Islamic Republic of Mauritania'|t }}">
-{%- if text_wordmarks -%}
-<span class="official-wordmarks wordmarks-text"><span class="republic-wordmark">{{ 'Islamic Republic of Mauritania'|t }}<small>{{ 'Honour – Fraternity – Justice'|t }}</small></span><span class="ministry-wordmark">{{ 'Ministry of Digital Transformation and Administrative Modernization'|t }}</span></span>
-{%- else -%}
-<span class="official-wordmarks"><img class="republic-wordmark" src="{{ images }}/republic-wordmark.png" alt="{{ 'Islamic Republic of Mauritania — Honour, Fraternity, Justice'|t }}"><img class="ministry-wordmark" src="{{ images }}/ministry-logo.png" alt="{{ 'Ministry of Digital Transformation and Administrative Modernization'|t }}"></span>
-{%- endif %}
+<a class="identity" href="{{ path('<front>') }}" aria-label="{{ 'Ministry of Digital Transformation — Home'|t }}"><img class="national-seal" src="{{ images }}/seal.png" alt="{{ 'Emblem of the Islamic Republic of Mauritania'|t }}"><span class="official-wordmarks wordmarks-text"><span class="republic-wordmark">{{ 'Islamic Republic of Mauritania'|t }}</span><span class="ministry-wordmark">{{ 'Ministry of Digital Transformation and Administrative Modernization'|t }}</span></span>
 </a>
 <div class="utilities">
 {% if language_switch %}

@@ -85,7 +85,8 @@ function mtnma_preprocess_page(array &$variables): void {
   $cache->addCacheTags(['config:system.menu.main', 'config:system.menu.footer']);
 
   $variables['images'] = _mtnma_images_url();
-  // The official wordmark images are Arabic; other languages use text.
+  // The official ministry wordmark image is Arabic; other languages use text
+  // in the footer. The masthead always uses text wordmarks.
   $variables['text_wordmarks'] = $langcode !== 'ar';
   $variables['social_links'] = MTNMA_SOCIAL;
   $variables['official_site_url'] = $langcode === 'fr' ? 'https://mtnima.gov.mr/fr/' : 'https://mtnima.gov.mr/';
